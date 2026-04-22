@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro - Koch</title>
+</head>
+<body>
+<h1>Cadastro de Administrador</h1>
+
+<form th:action="@{/cadastro}" th:object="${cadastroUsuarioRequest}" method="post">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+
+    <div>
+        <label for="nome">Nome</label>
+        <input id="nome" type="text" th:field="*{nome}">
+        <div th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></div>
+    </div>
+
+    <div>
+        <label for="email">E-mail</label>
+        <input id="email" type="email" th:field="*{email}">
+        <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+    </div>
+
+    <div>
+        <label for="senha">Senha</label>
+        <input id="senha" type="password" th:field="*{senha}">
+        <div th:if="${#fields.hasErrors('senha')}" th:errors="*{senha}"></div>
+    </div>
+
+    <button type="submit">Cadastrar</button>
+</form>
+
+<p>
+    <a th:href="@{/login}">Voltar para login</a>
+</p>
+</body>
+</html>

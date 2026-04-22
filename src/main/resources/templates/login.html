@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - Koch</title>
+</head>
+<body>
+<h1>Login do Administrador</h1>
+
+<div th:if="${param.error}">
+    E-mail ou senha inválidos.
+</div>
+
+<div th:if="${param.logout}">
+    Logout realizado com sucesso.
+</div>
+
+<div th:if="${param.cadastroSucesso}">
+    Cadastro realizado com sucesso. Faça o login.
+</div>
+
+<form th:action="@{/login}" method="post">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+
+    <div>
+        <label for="email">E-mail</label>
+        <input id="email" name="email" type="email" required>
+    </div>
+
+    <div>
+        <label for="password">Senha</label>
+        <input id="password" name="password" type="password" required>
+    </div>
+
+    <button type="submit">Entrar</button>
+</form>
+
+<p>
+    <a th:href="@{/cadastro}">Criar conta de administrador</a>
+</p>
+</body>
+</html>
