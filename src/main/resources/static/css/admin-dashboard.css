@@ -1,0 +1,304 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=DM+Sans:wght@300;400;500&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background: linear-gradient(
+        120deg,
+        #8e4a4a 0%,
+        #a8957f 30%,
+        #c9c2b8 60%,
+        #e0dbd4 100%
+    );
+}
+
+/* NAVBAR */
+.navbar {
+    background-color: #860C17;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+}
+
+/* KOCH — fonte delicada e fina */
+.navbar-logo {
+    color: #D89721;
+    font-family: 'Work Sans', serif;
+    font-weight: 200;
+    font-size: 21px;
+    letter-spacing: 0.22em;
+}
+
+.navbar-links {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+}
+
+.navbar-links a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.navbar-icon {
+    width: 24px;
+    height: 24px;
+    filter: brightness(0) invert(1);
+}
+
+/* LAYOUT */
+.container {
+    display: flex;
+    height: calc(100vh - 55px);
+    /* padding cria o espaço para a sidebar "flutuar" */
+    padding: 20px 20px 20px 0;
+    gap: 20px;
+}
+
+/* SIDEBAR — descolada, flutuando com margem em todos os lados */
+.sidebar {
+    width: 180px;
+    min-height: 0;
+    flex-shrink: 0;
+
+    /* margem superior e inferior para desgrudar da navbar e do fundo */
+    margin: 0 0 0 20px;
+    border-radius: 20px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px 0;
+    background: #860C17
+}
+
+/* NAV SIDEBAR */
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-item {
+    color: white;
+    text-decoration: none;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 500;
+    font-size: 14px;
+    border-left: 3px solid transparent;
+    transition: 0.2s;
+}
+
+.sidebar-item.active,
+.sidebar-item:hover {
+    background-color: rgba(255,255,255,0.1);
+    border-left: 3px solid white;
+}
+
+.sidebar-sair {
+    color: white;
+    text-decoration: none;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.sidebar-icon {
+    width: 20px;
+    height: 20px;
+    filter: brightness(0) invert(1);
+}
+
+/* MAIN */
+.main-content {
+    flex: 1;
+    padding: 30px 30px 30px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    min-height: 0;
+}
+
+/* HEADER */
+.main-header {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+.saudacao {
+    flex: 1;
+}
+
+.saudacao .data {
+    color: white;
+    font-size: 14px;
+    opacity: 0.7;
+}
+
+.saudacao h1 {
+    font-size: 40px;
+    font-weight: 700;
+    color: white;
+}
+
+/* CARDS BASE */
+.proximos-envios,
+.painel-unificado {
+    background-color: #860C17;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+
+}
+
+/* PRÓXIMOS ENVIOS */
+.proximos-envios {
+    flex: 1;
+    border: 2px solid white;
+    border-radius: 12px;
+}
+
+.proximos-envios-header {
+    display: flex;
+    justify-content: space-between;
+    color: white;
+    font-weight: bold;
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+.proximos-envios-body p {
+    color: white;
+    font-size: 13px;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+}
+
+/* PAINÉIS — bloco único ocupando toda a largura */
+.paineis {
+    flex: 1;
+    min-height: 0;
+}
+
+/* ── BLOCO UNIFICADO ── */
+.painel-unificado {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* Abas no topo do bloco */
+.painel-tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+.tab-btn {
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.5);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 6px 16px 10px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 0.2s, border-color 0.2s;
+}
+
+.tab-btn.active {
+    color: white;
+    border-bottom: 2px solid white;
+}
+
+.tab-btn:hover:not(.active) {
+    color: rgba(255,255,255,0.8);
+}
+
+/* Conteúdo das abas — rolável */
+.tab-content {
+    display: none;
+    flex-direction: column;
+    overflow-y: auto;
+    flex: 1;
+    /* scroll suave */
+    scroll-behavior: smooth;
+}
+
+.tab-content.active {
+    display: flex;
+}
+
+/* Scrollbar discreta */
+.tab-content::-webkit-scrollbar { width: 4px; }
+.tab-content::-webkit-scrollbar-track { background: transparent; }
+.tab-content::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 4px; }
+
+/* PRODUTOS dentro do bloco */
+.painel-header {
+    color: white;
+    font-weight: bold;
+    margin-bottom: 15px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.produto-item {
+    display: flex;
+    justify-content: space-between;
+    color: white;
+    font-size: 13px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+    transition: 0.2s;
+}
+
+/* ENVIOS dentro do bloco */
+.envio-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+    transition: 0.2s;
+}
+
+.envio-info p {
+    color: white;
+    font-size: 13px;
+    margin: 2px 0;
+}
+
+input[type="checkbox"] {
+    accent-color: #D89721;
+}
+
+/* HOVER */
+.envio-item:hover,
+.produto-item:hover {
+    background-color: rgba(255,255,255,0.05);
+    border-radius: 8px;
+    padding-left: 8px;
+}

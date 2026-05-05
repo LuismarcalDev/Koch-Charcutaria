@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Koch</title>
+    <link rel="stylesheet" th:href="@{/css/admin-dashboard.css}">
+</head>
+<body>
+
+<nav class="navbar">
+    <span class="navbar-logo">KOCH</span>
+    <div class="navbar-links">
+        <a href="#">
+            <img th:src="@{/imagens/ic_cadastrados.svg}" alt="cadastrados" class="navbar-icon"/>
+            Clientes Cadastrados
+        </a>
+        <img th:src="@{/imagens/ic_notifica.svg}" alt="notificações" class="navbar-icon"/>
+    </div>
+</nav>
+
+<div class="container">
+
+    <aside class="sidebar">
+        <nav class="sidebar-nav">
+            <a href="#" class="sidebar-item active" onclick="switchTab('inicio', this); return false;">
+                <img th:src="@{/imagens/ic_home.svg}" alt="inicio" class="sidebar-icon"/>
+                <span>Início</span>
+            </a>
+            <a href="#" class="sidebar-item" onclick="switchTab('agenda', this); return false;">
+                <span>Agenda</span>
+            </a>
+            <a href="#" class="sidebar-item" onclick="switchTab('criar', this); return false;">
+                <span>Criar Produtos</span>
+            </a>
+            <a href="#" class="sidebar-item" onclick="switchTab('envios', this); return false;">
+                <span>Envios</span>
+            </a>
+        </nav>
+
+        <a href="#" class="sidebar-sair">
+            <img th:src="@{/imagens/ic_sair.svg}" alt="sair" class="sidebar-icon"/>
+            <span>Sair</span>
+        </a>
+    </aside>
+
+    <!-- ÁREA PRINCIPAL -->
+    <main class="main-content">
+
+        <!-- CABEÇALHO -->
+        <div class="main-header">
+            <div class="saudacao">
+                <p class="data">Sexta-feira, 20 de março</p>
+                <h1>Olá Administrador!</h1>
+            </div>
+            <div class="proximos-envios">
+                <div class="proximos-envios-header">
+                    <img th:src="@{/imagens/ic_alarme.svg}" alt="alarme" class="navbar-icon"/>
+                    <span> Próximos Envios (Pendentes)</span>
+                    <span>Quinta, 26 de março</span>
+                </div>
+                <div class="proximos-envios-body">
+                    <p>  </p>
+                    <p>  </p>
+                    <p>  </p>
+                    <!-- PREENCHER -->
+                </div>
+            </div>
+        </div>
+
+        <!-- BLOCO CENTRAL ÚNICO -->
+        <div class="paineis">
+            <div class="painel-unificado">
+
+                <!-- INÍCIO -->
+                <div class="tab-content active" id="tab-inicio">
+                    <h2 style="color:white; font-size:18px; margin-bottom:16px;">Início</h2>
+                    <p style="color:rgba(255,255,255,0.7); font-size:14px;">Visão geral do painel.</p>
+                </div>
+
+                <!-- AGENDA -->
+                <div class="tab-content" id="tab-agenda">
+                    <h2 style="color:white; font-size:18px; margin-bottom:16px;">Agenda</h2>
+                    <p style="color:rgba(255,255,255,0.7); font-size:14px;">Nenhum evento agendado.</p>
+                </div>
+
+                <!-- CRIAR PRODUTOS -->
+                <div class="tab-content" id="tab-criar">
+                    <div class="painel-header">+ Novo Produto</div>
+                    <div class="produto-item"><span>  </span><span>  </span></div>
+
+
+                </div>
+
+                <!-- ENVIOS -->
+                <div class="tab-content" id="tab-envios">
+                    <h2 style="color:white; font-size:18px; margin-bottom:16px;">Envios</h2>
+                    <div class="envio-item">
+                        <div class="envio-info">
+                            <p> </p>
+                        </div>
+                        <input type="checkbox" checked>
+                    </div>
+                    <div class="envio-item">
+                        <div class="envio-info">
+                            <p> </p>
+                        </div>
+                        <input type="checkbox">
+                    </div>
+                    <div class="envio-item">
+                        <div class="envio-info">
+                            <p> </p>
+                            <!--Pedidos atrasados PREENCHER -->
+                        </div>
+                        <input type="checkbox">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+</div>
+
+<script>
+    function switchTab(name, clickedEl) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.sidebar-item').forEach(el => el.classList.remove('active'));
+      document.getElementById('tab-' + name).classList.add('active');
+      clickedEl.classList.add('active');
+    }
+</script>
+
+</body>
+</html>
