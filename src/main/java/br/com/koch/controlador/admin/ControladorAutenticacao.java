@@ -1,6 +1,6 @@
-package br.com.koch.controlador;
+package br.com.koch.controlador.admin;
 
-import br.com.koch.dto.CadastroUsuarioRequest;
+import br.com.koch.dto.admin.CadastroUsuarioRequest;
 import br.com.koch.servico.ServicoCadastroUsuario;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -23,14 +23,14 @@ public class ControladorAutenticacao
     @GetMapping("/login")
     public String login()
     {
-        return "login";
+        return "admin/login";
     }
 
     @GetMapping("/cadastro")
     public String abrirCadastro(Model model)
     {
         model.addAttribute("cadastroUsuarioRequest", new CadastroUsuarioRequest());
-        return "cadastro";
+        return "admin/cadastro";
     }
 
     @PostMapping("/cadastro")
@@ -41,7 +41,7 @@ public class ControladorAutenticacao
     {
         if (bindingResult.hasErrors())
         {
-            return "cadastro";
+            return "admin/cadastro";
         }
 
         try
@@ -51,7 +51,7 @@ public class ControladorAutenticacao
         catch (IllegalArgumentException ex)
         {
             bindingResult.rejectValue("email", "email.duplicado", ex.getMessage());
-            return "cadastro";
+            return "admin/cadastro";
         }
 
         return "redirect:/login?cadastroSucesso";

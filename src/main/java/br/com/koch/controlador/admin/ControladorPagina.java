@@ -1,4 +1,4 @@
-package br.com.koch.controlador;
+package br.com.koch.controlador.admin;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,6 +9,6 @@ public class ControladorPagina
     @GetMapping("/painel")
     public String painel()
     {
-        return "painel";
+        return "admin/painel";
     }
 }

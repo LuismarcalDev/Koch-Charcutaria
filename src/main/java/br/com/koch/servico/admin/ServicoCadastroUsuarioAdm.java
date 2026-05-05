@@ -1,4 +1,4 @@
-package br.com.koch.servico;
+package br.com.koch.servico.admin;
 
 import br.com.koch.dto.admin.CadastroUsuarioRequest;
 import br.com.koch.modelo.admin.Perfil;
@@ -10,12 +10,12 @@ import org.springframework.stereotype.Service;
 import java.util.UUID;
 
 @Service
-public class ServicoCadastroUsuario
+public class ServicoCadastroUsuarioAdm
 {
     private final RepositorioUsuario repositorioUsuario;
     private final PasswordEncoder passwordEncoder;
 
-    public ServicoCadastroUsuario(RepositorioUsuario repositorioUsuario, PasswordEncoder passwordEncoder)
+    public ServicoCadastroUsuarioAdm(RepositorioUsuario repositorioUsuario, PasswordEncoder passwordEncoder)
     {
         this.repositorioUsuario = repositorioUsuario;
         this.passwordEncoder = passwordEncoder;

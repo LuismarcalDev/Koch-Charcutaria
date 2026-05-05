@@ -1,0 +1,63 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #efefef;
+    min-height: 100vh;
+}
+
+.cabecalho-painel {
+    height: 72px;
+    background-color: #980914;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+}
+
+.cabecalho-esquerda {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.cabecalho-esquerda img {
+    height: 44px;
+}
+
+.cabecalho-esquerda span {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.botao-sair {
+    border: none;
+    background-color: #c88221;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.conteudo-painel {
+    padding: 40px;
+}
+
+.card-painel {
+    max-width: 900px;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 8px;
+    padding: 32px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+.card-painel h1 {
+    margin-bottom: 12px;
+}
