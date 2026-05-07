@@ -47,23 +47,27 @@
     <!-- ÁREA PRINCIPAL -->
     <main class="main-content">
 
-        <!-- CABEÇALHO -->
+        <!-- saudacao -->
         <div class="main-header">
             <div class="saudacao">
-                <p class="data">Sexta-feira, 20 de março</p>
+                <p class="data" id="data"></p>
                 <h1>Olá Administrador!</h1>
             </div>
+
             <div class="proximos-envios">
                 <div class="proximos-envios-header">
-                    <img th:src="@{/imagens/ic_alarme.svg}" alt="alarme" class="navbar-icon"/>
+                    <img th:src="@{/imagens/ic_alarme.svg}" alt="alarme" class="envios-icon"/>
                     <span> Próximos Envios (Pendentes)</span>
-                    <span>Quinta, 26 de março</span>
+
                 </div>
                 <div class="proximos-envios-body">
                     <p>  </p>
-                    <p>  </p>
-                    <p>  </p>
+
+
+
                     <!-- PREENCHER -->
+
+
                 </div>
             </div>
         </div>
@@ -100,7 +104,8 @@
                             <p> </p>
                         </div>
                         <label>
-                            <input type="checkbox" id=envio-001" checked>
+                            <input type="checkbox" id="envio-001" checked>
+                            <span class="visually-hidden">Pedido 001</span>
                         </label>
                     </div>
                     <div class="envio-item">
@@ -108,16 +113,17 @@
                             <p> </p>
                         </div>
                         <label>
-                            <input type="checkbox" id=envio-002" checked>
+                            <input type="checkbox" id="envio-002" checked>
+                            <span class="visually-hidden">Pedido 002</span>
                         </label>
                     </div>
                     <div class="envio-item">
                         <div class="envio-info">
                             <p> </p>
-                            <!--Pedidos atrasados PREENCHER -->
                         </div>
                        <label>
-                           <input type="checkbox" id=envio-003" checked>
+                           <input type="checkbox" id="envio-003" checked>
+                           <span class="visually-hidden">Pedido 003</span>
                        </label>
                     </div>
                 </div>
@@ -128,15 +134,6 @@
     </main>
 
 </div>
-
-<script>
-    function switchTab(name, clickedEl) {
-      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-      document.querySelectorAll('.sidebar-item').forEach(el => el.classList.remove('active'));
-      document.getElementById('tab-' + name).classList.add('active');
-      clickedEl.classList.add('active');
-    }
-</script>
-
+<script th:src="@{/js/dashboard.js}"></script>
 </body>
 </html>

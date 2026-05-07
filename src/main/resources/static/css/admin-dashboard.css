@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=DM+Sans:wght@300;400;500&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Playfair+Display:wght@400;700&display=swap');
 * {
     margin: 0;
     padding: 0;
@@ -26,10 +25,10 @@ body {
     padding: 15px 30px;
 }
 
-/* KOCH — fonte delicada e fina */
+
 .navbar-logo {
     color: #D89721;
-    font-family: 'Work Sans', serif;
+    font-family: 'Playfair Display', serif;
     font-weight: 200;
     font-size: 21px;
     letter-spacing: 0.22em;
@@ -61,21 +60,17 @@ body {
 .container {
     display: flex;
     height: calc(100vh - 55px);
-    /* padding cria o espaço para a sidebar "flutuar" */
     padding: 20px 20px 20px 0;
     gap: 20px;
 }
 
-/* SIDEBAR — descolada, flutuando com margem em todos os lados */
+
 .sidebar {
     width: 180px;
     min-height: 0;
     flex-shrink: 0;
-
-    /* margem superior e inferior para desgrudar da navbar e do fundo */
     margin: 0 0 0 20px;
     border-radius: 20px;
-
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -158,6 +153,7 @@ body {
     color: white;
 }
 
+
 /* CARDS BASE */
 .proximos-envios,
 .painel-unificado {
@@ -172,7 +168,6 @@ body {
 .proximos-envios {
     flex: 1;
     border: 2px solid white;
-    border-radius: 12px;
 }
 
 .proximos-envios-header {
@@ -191,7 +186,13 @@ body {
     border-bottom: 1px solid rgba(255,255,255,0.15);
 }
 
-/* PAINÉIS — bloco único ocupando toda a largura */
+.envios-icon {
+    width: 20px;
+    height: 20px;
+    filter: brightness(0) invert(1);
+}
+
+/* PAINÉIS  */
 .paineis {
     flex: 1;
     min-height: 0;
@@ -204,37 +205,6 @@ body {
     min-height: 0;
     height: 100%;
     overflow: hidden;
-}
-
-/* Abas no topo do bloco */
-.painel-tabs {
-    display: flex;
-    gap: 0;
-    margin-bottom: 16px;
-    border-bottom: 1px solid rgba(255,255,255,0.2);
-}
-
-.tab-btn {
-    background: none;
-    border: none;
-    color: rgba(255,255,255,0.5);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    padding: 6px 16px 10px;
-    cursor: pointer;
-    border-bottom: 2px solid transparent;
-    margin-bottom: -1px;
-    transition: color 0.2s, border-color 0.2s;
-}
-
-.tab-btn.active {
-    color: white;
-    border-bottom: 2px solid white;
-}
-
-.tab-btn:hover:not(.active) {
-    color: rgba(255,255,255,0.8);
 }
 
 /* Conteúdo das abas — rolável */
@@ -291,8 +261,18 @@ body {
     margin: 2px 0;
 }
 
+
 input[type="checkbox"] {
     accent-color: #D89721;
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    white-space: nowrap;
 }
 
 /* HOVER */
