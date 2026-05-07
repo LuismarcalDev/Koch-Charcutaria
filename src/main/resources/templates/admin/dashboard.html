@@ -37,95 +37,111 @@
                 <span>Envios</span>
             </a>
         </nav>
-
-        <a href="#" class="sidebar-sair">
+        <a th:href="@{/logout}" class="sidebar-sair">
             <img th:src="@{/imagens/ic_sair.svg}" alt="sair" class="sidebar-icon"/>
             <span>Sair</span>
         </a>
     </aside>
 
-    <!-- ÁREA PRINCIPAL -->
     <main class="main-content">
 
-        <!-- saudacao -->
         <div class="main-header">
             <div class="saudacao">
                 <p class="data" id="data"></p>
                 <h1>Olá Administrador!</h1>
             </div>
-
             <div class="proximos-envios">
                 <div class="proximos-envios-header">
                     <img th:src="@{/imagens/ic_alarme.svg}" alt="alarme" class="envios-icon"/>
-                    <span> Próximos Envios (Pendentes)</span>
-
+                    <span>Próximos Envios (Pendentes)</span>
                 </div>
-                <div class="proximos-envios-body">
-                    <p>  </p>
-
-
-
-                    <!-- PREENCHER -->
-
-
+                <div th:each="pedido : ${pedidosPendentes}" class="proximos-envios-body">
+                    <p th:text="${pedido.nomeCliente + ' - ' + pedido.produto.nome}"></p>
                 </div>
+                <p th:if="${#lists.isEmpty(pedidosPendentes)}"
+                   style="color:rgba(255,255,255,0.6); font-size:13px;">
+                    Nenhum envio pendente.
+                </p>
             </div>
         </div>
 
-        <!-- BLOCO CENTRAL ÚNICO -->
         <div class="paineis">
             <div class="painel-unificado">
 
                 <!-- INÍCIO -->
                 <div class="tab-content active" id="tab-inicio">
-                    <h2 style="color:white; font-size:18px; margin-bottom:16px;">Início</h2>
-                    <p style="color:rgba(255,255,255,0.7); font-size:14px;">Visão geral do painel.</p>
+                    <h2 class="tab-titulo">Início</h2>
+                    <div th:each="produto : ${produtos}" class="produto-item">
+                        <span th:text="${produto.nome}"></span>
+                        <span th:text="${'R$ ' + produto.valor}"></span>
+                    </div>
+                    <p th:if="${#lists.isEmpty(produtos)}"
+                       style="color:rgba(255,255,255,0.6); font-size:13px;">
+                        Nenhum produto cadastrado.
+                    </p>
                 </div>
 
                 <!-- AGENDA -->
                 <div class="tab-content" id="tab-agenda">
-                    <h2 style="color:white; font-size:18px; margin-bottom:16px;">Agenda</h2>
-                    <p style="color:rgba(255,255,255,0.7); font-size:14px;">Nenhum evento agendado.</p>
+                    <h2 class="tab-titulo">Agenda do Mês</h2>
+                    <div th:each="pedido : ${pedidosDoMes}" class="envio-item">
+                        <div class="envio-info">
+                            <p th:text="${pedido.nomeCliente}"></p>
+                            <p th:text="${pedido.produto.nome}"></p>
+                            <p th:text="${pedido.dataEnvio}"></p>
+                        </div>
+                        <span th:if="${pedido.status.name() == 'ENVIADO'}"
+                              style="color:#4CAF50; font-size:18px;">✓</span>
+                        <span th:if="${pedido.status.name() == 'PENDENTE'}"
+                              style="color:rgba(255,255,255,0.5); font-size:13px;">Pendente</span>
+                    </div>
+                    <p th:if="${#lists.isEmpty(pedidosDoMes)}"
+                       style="color:rgba(255,255,255,0.6); font-size:13px;">
+                        Nenhum envio agendado para este mês.
+                    </p>
                 </div>
 
                 <!-- CRIAR PRODUTOS -->
                 <div class="tab-content" id="tab-criar">
-                    <div class="painel-header">+ Novo Produto</div>
-                    <div class="produto-item"><span>  </span><span>  </span></div>
-
-
+                    <div class="painel-header">
+                        <span>Produtos</span>
+                        <button onclick="abrirModal()" class="btn-novo">+ Novo</button>
+                    </div>
+                    <div th:each="produto : ${produtos}" class="produto-item">
+                        <span th:text="${produto.nome}"></span>
+                        <span th:text="${'R$ ' + produto.valor}"></span>
+                        <div class="produto-acoes">
+                            <button onclick="editarProduto([[${produto.id}]], '[[${produto.nome}]]', '[[${produto.descricao}]]', '[[${produto.imagemUrl}]]', [[${produto.quantidade}]], [[${produto.valor}]])" class="btn-editar">Editar</button>
+                            <a th:href="@{/admin/produtos/deletar/{id}(id=${produto.id})}">Excluir</a>
+                        </div>
+                    </div>
+                    <p th:if="${#lists.isEmpty(produtos)}"
+                       style="color:rgba(255,255,255,0.6); font-size:13px;">
+                        Nenhum produto cadastrado.
+                    </p>
                 </div>
 
                 <!-- ENVIOS -->
                 <div class="tab-content" id="tab-envios">
-                    <h2 style="color:white; font-size:18px; margin-bottom:16px;">Envios</h2>
-                    <div class="envio-item">
+                    <h2 class="tab-titulo">Envios</h2>
+                    <div th:each="pedido : ${pedidos}" class="envio-item">
                         <div class="envio-info">
-                            <p> </p>
+                            <p th:text="${pedido.nomeCliente}"></p>
+                            <p th:text="${pedido.produto.nome}"></p>
+                            <p th:text="${pedido.dataEnvio}"></p>
                         </div>
-                        <label>
-                            <input type="checkbox" id="envio-001" checked>
-                            <span class="visually-hidden">Pedido 001</span>
-                        </label>
+                        <form th:action="@{/admin/pedidos/check/{id}(id=${pedido.id})}" method="post">
+                            <label>
+                                <input type="checkbox" onchange="this.form.submit()"
+                                       th:checked="${pedido.status.name() == 'ENVIADO'}">
+                                <span class="visually-hidden">Marcar como enviado</span>
+                            </label>
+                        </form>
                     </div>
-                    <div class="envio-item">
-                        <div class="envio-info">
-                            <p> </p>
-                        </div>
-                        <label>
-                            <input type="checkbox" id="envio-002" checked>
-                            <span class="visually-hidden">Pedido 002</span>
-                        </label>
-                    </div>
-                    <div class="envio-item">
-                        <div class="envio-info">
-                            <p> </p>
-                        </div>
-                       <label>
-                           <input type="checkbox" id="envio-003" checked>
-                           <span class="visually-hidden">Pedido 003</span>
-                       </label>
-                    </div>
+                    <p th:if="${#lists.isEmpty(pedidos)}"
+                       style="color:rgba(255,255,255,0.6); font-size:13px;">
+                        Nenhum pedido encontrado.
+                    </p>
                 </div>
 
             </div>
@@ -133,7 +149,44 @@
 
     </main>
 
+    <!-- MODAL PRODUTO -->
+    <div class="modal-overlay" id="modal-produto" style="display:none;">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 id="modal-titulo">Novo Produto</h2>
+                <button onclick="fecharModal()" class="modal-fechar">✕</button>
+            </div>
+            <form th:action="@{/admin/produtos/salvar}" method="post">
+                <input type="hidden" id="produto-id" name="id"/>
+                <div class="modal-campo">
+                    <label>Nome</label>
+                    <input type="text" name="nome" id="produto-nome" required/>
+                </div>
+                <div class="modal-campo">
+                    <label>Descrição</label>
+                    <textarea name="descricao" id="produto-descricao"></textarea>
+                </div>
+                <div class="modal-campo">
+                    <label>URL da Imagem</label>
+                    <input type="text" name="imagemUrl" id="produto-imagemUrl"/>
+                </div>
+                <div class="modal-campo">
+                    <label>Quantidade</label>
+                    <input type="number" name="quantidade" id="produto-quantidade"/>
+                </div>
+                <div class="modal-campo">
+                    <label>Valor</label>
+                    <input type="number" step="0.01" name="valor" id="produto-valor" required/>
+                </div>
+                <div class="modal-acoes">
+                    <button type="button" onclick="fecharModal()">Cancelar</button>
+                    <button type="submit">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
+
 <script th:src="@{/js/dashboard.js}"></script>
 </body>
 </html>

@@ -6,6 +6,7 @@ import br.com.koch.repositorio.admin.PedidoRepository;
 import br.com.koch.repositorio.admin.PedidoRepositoryImpl;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class PedidoService {
 
@@ -39,5 +40,13 @@ public class PedidoService {
                 pedidoRepository.salvar(pedido);
             }
         }
+    }
+    public List<Pedido> buscarEnviosDoMes() {
+        LocalDate hoje = LocalDate.now();
+        return pedidoRepository.listarTodos().stream()
+                .filter(p -> p.getStatus() != StatusPedido.ATRASADO)
+                .filter(p -> p.getDataEnvio().getMonth() == hoje.getMonth()
+                        && p.getDataEnvio().getYear() == hoje.getYear())
+                .collect(Collectors.toList());
     }
 }
