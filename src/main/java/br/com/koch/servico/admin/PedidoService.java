@@ -4,10 +4,13 @@ import br.com.koch.modelo.admin.Pedido;
 import br.com.koch.modelo.admin.StatusPedido;
 import br.com.koch.repositorio.admin.PedidoRepository;
 import br.com.koch.repositorio.admin.PedidoRepositoryImpl;
+import org.springframework.stereotype.Component;
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Component
 public class PedidoService {
 
     private PedidoRepository pedidoRepository = new PedidoRepositoryImpl();

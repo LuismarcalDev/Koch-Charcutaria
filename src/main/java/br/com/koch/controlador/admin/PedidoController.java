@@ -3,6 +3,7 @@ package br.com.koch.controlador.admin;
 import br.com.koch.modelo.admin.Pedido;
 import br.com.koch.modelo.admin.StatusPedido;
 import br.com.koch.servico.admin.PedidoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +12,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/admin/pedidos")
 public class PedidoController {
 
-    private PedidoService pedidoService = new PedidoService();
+    @Autowired
+    private PedidoService pedidoService;
 
     @GetMapping
     public String listar(Model model) {

@@ -31,14 +31,14 @@ function abrirModal() {
     document.getElementById('modal-produto').style.display = 'flex';
 }
 
-function editarProduto(id, nome, descricao, imagemUrl, quantidade, valor) {
+function editarProduto(btn) {
     document.getElementById('modal-titulo').innerText = 'Editar Produto';
-    document.getElementById('produto-id').value = id;
-    document.getElementById('produto-nome').value = nome;
-    document.getElementById('produto-descricao').value = descricao;
-    document.getElementById('produto-imagemUrl').value = imagemUrl;
-    document.getElementById('produto-quantidade').value = quantidade;
-    document.getElementById('produto-valor').value = valor;
+    document.getElementById('produto-id').value = btn.dataset.id;
+    document.getElementById('produto-nome').value = btn.dataset.nome;
+    document.getElementById('produto-descricao').value = btn.dataset.descricao;
+    document.getElementById('produto-imagemUrl').value = btn.dataset.imagem;
+    document.getElementById('produto-quantidade').value = btn.dataset.quantidade;
+    document.getElementById('produto-valor').value = btn.dataset.valor;
     document.getElementById('modal-produto').style.display = 'flex';
 }
 
