@@ -1,0 +1,27 @@
+/* Estilos extraídos do arquivo renderizado (estilo_extraido.css) */
+
+/* Estilo que estava direto no <body> */
+#block {
+    height: 100%;
+}
+
+/* Estilo que estava no iframe do Google Maps */
+.mapa-iframe {
+    border: 0px;
+}
+
+/* Estado final das animações do ScrollReveal para títulos e imagens */
+.sr-animacao-basica {
+    visibility: visible;
+    opacity: 1;
+    transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+    transition: all, opacity 1.2s ease-out, transform 1.2s ease-out;
+}
+
+/* Estado final das animações do ScrollReveal para os Cards de produtos */
+.sr-animacao-card {
+    visibility: visible;
+    opacity: 1;
+    transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+    transition: transform 0.3s, box-shadow 0.3s, opacity 1.2s ease-out, transform 1.2s ease-out;
+}
