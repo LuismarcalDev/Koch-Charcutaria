@@ -32,11 +32,12 @@ public class ConfiguracaoSeguranca {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/css/**", "/js/**", "/images/**", "/webjars/**", "/favicon.ico").permitAll()
+                        .requestMatchers("/css/**", "/js/**", "/images/**", "/cliente/css/**", "/cliente/img/**", "/cliente/js/**", "/webjars/**", "/favicon.ico").permitAll()
                         .requestMatchers("/", "/suinos", "/carnes", "/historia", "/sobre", "/delivery", "/contato", "/carrinho").permitAll()
                         .requestMatchers("/login", "/cadastro").permitAll()
                         .requestMatchers("/cliente/login", "/cliente/cadastro").permitAll()
                         .requestMatchers("/painel/**").hasRole("ADMINISTRADOR")
+                        .requestMatchers("/cliente/painel", "/cliente/painel/**").authenticated()
                         .anyRequest().permitAll()
                 )
                 .formLogin(form -> form
@@ -44,7 +45,7 @@ public class ConfiguracaoSeguranca {
                         .loginProcessingUrl("/cliente/login")
                         .usernameParameter("email")
                         .passwordParameter("password")
-                        .defaultSuccessUrl("/", true)
+                        .defaultSuccessUrl("/cliente/painel", true)
                         .failureUrl("/cliente/login?error")
                         .permitAll()
                 )

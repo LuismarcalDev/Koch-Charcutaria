@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/cliente/css/painel.css}">
+    <link rel="stylesheet" th:href="@{/cliente/css/cliente-mensagens.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <title>Painel do Usuário</title>
+</head>
+<body>
+
+<div class="cliente-toast-stack" aria-live="polite">
+    <div th:if="${msgDadosSalvos}" class="cliente-toast cliente-toast--ok cliente-toast--timed" role="status">
+        <span class="cliente-toast__icon" aria-hidden="true"><i class="fa-solid fa-circle-check"></i></span>
+        <span class="cliente-toast__text">Dados pessoais salvos com sucesso.</span>
+    </div>
+    <div th:if="${msgDadosErro}" class="cliente-toast cliente-toast--erro" role="alert">
+        <span class="cliente-toast__icon" aria-hidden="true"><i class="fa-solid fa-circle-xmark"></i></span>
+        <span class="cliente-toast__text" th:text="${msgDadosErro}">Erro</span>
+    </div>
+    <div th:if="${msgEnderecoSalvo}" class="cliente-toast cliente-toast--ok cliente-toast--timed" role="status">
+        <span class="cliente-toast__icon" aria-hidden="true"><i class="fa-solid fa-circle-check"></i></span>
+        <span class="cliente-toast__text">Endereço atualizado com sucesso.</span>
+    </div>
+    <div th:if="${msgEnderecoErro}" class="cliente-toast cliente-toast--erro" role="alert">
+        <span class="cliente-toast__icon" aria-hidden="true"><i class="fa-solid fa-circle-xmark"></i></span>
+        <span class="cliente-toast__text" th:text="${msgEnderecoErro}">Erro</span>
+    </div>
+</div>
+
+<!-- POPUP -->
+<div class="popup-backdrop" id="popupBackdrop" aria-hidden="true"
+     th:if="${assinaturaSelecionada != null}">
+    <div class="popup-modal" role="dialog" aria-modal="true" aria-labelledby="popupTitle" tabindex="-1">
+        <button type="button" class="popup-close" id="popupClose" aria-label="Fechar detalhes da assinatura">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <div class="popup-hero">
+            <div class="popup-hero__img-wrap">
+                <img th:src="@{/cliente/img/{foto}(foto=${assinaturaSelecionada.foto})}"
+                     th:alt="${assinaturaSelecionada.nome}">
+            </div>
+            <div class="popup-hero__badge">
+                <i class="fa-solid fa-circle-check"></i> Assinatura ativa
+            </div>
+        </div>
+        <div class="popup-body">
+            <h2 id="popupTitle" class="popup-title" th:text="${assinaturaSelecionada.nome}">Cesta Suínos</h2>
+            <p class="popup-desc" th:text="${assinaturaSelecionada.descricao}">
+                Receba produtos selecionados todo mês com a qualidade Koch.
+            </p>
+            <div class="popup-price">
+                    <span class="popup-price__value"
+                          th:text="'R$\u00a0' + ${#numbers.formatDecimal(assinaturaSelecionada.preco, 1, 2)}">
+                        R$&nbsp;29,00
+                    </span>
+                <span class="popup-price__period">/ mês</span>
+            </div>
+            <div class="popup-actions">
+                <button type="button" class="popup-btn popup-btn--ghost" id="popupFecharInferior">Fechar</button>
+                <form th:action="@{/assinaturas/{id}/desativar(id=${assinaturaSelecionada.id})}" method="post">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                    <button type="submit" class="popup-btn popup-btn--danger">Desativar assinatura</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- POPUP estático (quando não há assinatura selecionada via modelo, mantém estrutura para JS) -->
+<div class="popup-backdrop" id="popupBackdrop" aria-hidden="true"
+     th:unless="${assinaturaSelecionada != null}">
+    <div class="popup-modal" role="dialog" aria-modal="true" aria-labelledby="popupTitle" tabindex="-1">
+        <button type="button" class="popup-close" id="popupClose" aria-label="Fechar detalhes da assinatura">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <div class="popup-hero">
+            <div class="popup-hero__img-wrap">
+                <img th:src="@{/cliente/img/foto.png}" alt="Imagem da cesta assinada" id="popupImg">
+
+            </div>
+            <div class="popup-hero__badge"><i class="fa-solid fa-circle-check"></i> Assinatura ativa</div>
+        </div>
+        <div class="popup-body">
+            <h2 id="popupTitle" class="popup-title">Cesta Suínos</h2>
+            <p class="popup-desc">Receba produtos selecionados todo mês com a qualidade Koch.</p>
+            <div class="popup-price">
+                <span class="popup-price__value">R$&nbsp;29,00</span>
+                <span class="popup-price__period">/ mês</span>
+            </div>
+            <div class="popup-actions">
+                <button type="button" class="popup-btn popup-btn--ghost" id="popupFecharInferior">Fechar</button>
+                <button type="button" class="popup-btn popup-btn--danger" disabled title="Exemplo — indisponível">Desativar assinatura</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- HEADER -->
+<header class="topbar">
+    <img th:src="@{/cliente/img/logo.png}" alt="Logo Koch">
+
+    <input type="checkbox" id="menu-toggle" class="menu-toggle">
+    <label for="menu-toggle" class="menu-button" aria-label="Abrir menu">
+        <i class="fa-solid fa-bars"></i>
+    </label>
+    <div class="links">
+        <a th:href="@{/}">Inicio</a>
+        <a th:href="@{/suinos}">Suinos</a>
+        <a th:href="@{/carnes}">Carnes</a>
+        <a th:href="@{/historia}">Historia</a>
+        <a th:href="@{/sobre}">Sobre</a>
+        <a th:href="@{/delivery}">Delivery</a>
+        <a th:href="@{/cliente/painel}" class="mobile-action"><i class="fa-solid fa-user"></i>Usuario</a>
+        <a th:href="@{/carrinho}" class="mobile-action"><i class="fa-solid fa-cart-shopping"></i>Carrinho</a>
+        <a th:href="@{/contato}" class="mobile-action"><i class="fa-solid fa-phone"></i>Contato</a>
+    </div>
+    <div class="icons">
+        <i class="fa-solid fa-user"></i>
+        <i class="fa-solid fa-cart-shopping"></i>
+        <button>
+            <i class="fa-solid fa-phone"></i>
+            Contato
+        </button>
+    </div>
+    <label for="menu-toggle" class="menu-overlay" aria-hidden="true"></label>
+</header>
+
+<!-- MAIN -->
+<main>
+    <div class="painel">
+
+        <div class="painel-dados">
+            <div class="perfil-aba">
+                <i class="fa-solid fa-user"></i>
+                <p th:text="${usuario.nome}"></p>
+            </div>
+            <div class="abas-gerais" role="tablist" aria-label="Seções do painel">
+                <button type="button" class="aba-painel is-active" role="tab"
+                        aria-selected="true" data-secao="dados" id="tabDados">
+                    Dados pessoais
+                </button>
+                <button type="button" class="aba-painel" role="tab"
+                        aria-selected="false" data-secao="assinaturas" id="tabAssinaturas">
+                    Assinaturas
+                </button>
+                <button type="button" class="aba-painel" role="tab"
+                        aria-selected="false" data-secao="enderecos" id="tabEnderecos">
+                    Endereços
+                </button>
+            </div>
+            <form th:action="@{/logout}" method="post">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                <button type="submit" class="sair">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    Sair
+                </button>
+            </form>
+        </div>
+
+        <div class="painel-infos">
+            <div class="painel-infos__views">
+
+                <!-- ABA: Dados Pessoais -->
+                <div class="painel-secao painel-secao--dados is-active"
+                     id="secaoDados" role="tabpanel" aria-labelledby="tabDados" aria-hidden="false">
+                    <h2>Dados pessoais</h2>
+                    <p class="painel-secao__subtitle">Atualize nome, telefone e e-mail da sua conta.</p>
+                    <form th:action="@{/cliente/painel/dados}" method="post" th:object="${usuarioForm}">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                        <div class="dados-pessoais">
+                            <div class="input-pessoal">
+                                <label for="name">Seu Nome</label>
+                                <input type="text" id="name" name="nome"
+                                       th:field="*{nome}"
+                                       th:placeholder="${usuario.nome}">
+                                <p class="painel-field-erro" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></p>
+                            </div>
+                            <div class="input-pessoal">
+                                <label for="telefone">Seu Telefone</label>
+                                <input type="text" id="telefone" name="telefone"
+                                       th:field="*{telefone}"
+                                       th:placeholder="${usuario.telefone}">
+                                <p class="painel-field-erro" th:if="${#fields.hasErrors('telefone')}" th:errors="*{telefone}"></p>
+                            </div>
+                            <div class="input-pessoal">
+                                <label for="email">Seu Email</label>
+                                <input type="email" id="email" name="email"
+                                       th:field="*{email}"
+                                       th:placeholder="${usuario.email}">
+                                <p class="painel-field-erro" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+                            </div>
+                            <div class="controller">
+                                <button type="submit" class="btn-save">Salvar dados</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- ABA: Assinaturas -->
+                <div class="painel-secao painel-secao--assinaturas"
+                     id="secaoAssinaturas" role="tabpanel" aria-labelledby="tabAssinaturas" aria-hidden="true">
+                    <h2>Assinaturas</h2>
+                    <p class="painel-secao__subtitle">Confira e gerencie suas cestas.</p>
+                    <div class="assinaturas">
+                        <div class="grupo-assinaturas">
+
+                            <!-- Lista de assinaturas do usuário -->
+                            <div th:each="assinatura : ${assinaturas}"
+                                 class="assinatura"
+                                 th:id="'assinaturaCard-' + ${assinatura.id}"
+                                 role="button" tabindex="0"
+                                 aria-haspopup="dialog"
+                                 aria-controls="popupBackdrop"
+                                 th:attr="aria-label='Ver detalhes de ' + ${assinatura.nome}">
+                                <div class="assinatura__media">
+                                    <img th:src="@{/cliente/img/{foto}(foto=${assinatura.foto})}"
+
+                                         th:alt="${assinatura.nome}">
+                                </div>
+                                <div class="assinatura__info">
+                                    <p class="assinatura__title" th:text="${assinatura.nome}">Cesta Suínos</p>
+                                    <span class="assinatura__meta"
+                                          th:text="${assinatura.periodicidade} + ' · ' + ${assinatura.fornecedor}">
+                                            Mensal · Koch
+                                        </span>
+                                </div>
+                                <button type="button" class="assinatura__status">
+                                    <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                                    <span>Assinatura ativa</span>
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                    <a th:href="@{/assinaturas}" class="btn-buscar-assinaturas">
+                        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                        Buscar assinaturas
+                    </a>
+                </div>
+
+                <!-- ABA: Endereços -->
+                <div class="painel-secao painel-secao--enderecos"
+                     id="secaoEnderecos" role="tabpanel" aria-labelledby="tabEnderecos" aria-hidden="true">
+                    <h2>Endereços</h2>
+                    <p class="painel-secao__subtitle">Endereço cadastrado para entrega. Você pode alterar quando precisar.</p>
+
+                    <div class="endereco-card endereco-card--resumo" th:if="${usuario.endereco != null && !usuario.endereco.isBlank()}">
+                        <p class="endereco-card__titulo">Endereço atual</p>
+                        <p th:text="${usuario.endereco}">Rua Exemplo, 123 - São Paulo</p>
+                    </div>
+                    <p th:if="${usuario.endereco == null || usuario.endereco.isBlank()}" class="painel-enderecos__vazio">
+                        Nenhum endereço informado ainda. Preencha o campo abaixo e salve.
+                    </p>
+
+                    <form class="painel-form-endereco" th:action="@{/cliente/painel/endereco}" method="post" th:object="${enderecoForm}">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                        <div class="input-pessoal">
+                            <label for="enderecoCompleto">Endereço completo</label>
+                            <textarea id="enderecoCompleto" rows="4" th:field="*{endereco}"
+                                      placeholder="Rua, número, bairro, cidade e referência"></textarea>
+                            <p class="painel-field-erro" th:if="${#fields.hasErrors('endereco')}" th:errors="*{endereco}"></p>
+                        </div>
+                        <div class="controller">
+                            <button type="submit" class="btn-save">Salvar endereço</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+    <div class="site-footer__inner">
+        <div class="site-footer__brand" aria-label="KOCH Embutidos e suínos">
+            <div class="site-footer__deco site-footer__deco--left">
+                <span class="site-footer__line" aria-hidden="true"></span>
+                <span class="site-footer__bar" aria-hidden="true">|</span>
+            </div>
+            <div class="site-footer__titles">
+                <p class="site-footer__name">KOCH</p>
+                <p class="site-footer__tagline">Embutidos e suínos</p>
+            </div>
+            <div class="site-footer__deco site-footer__deco--right">
+                <span class="site-footer__bar" aria-hidden="true">|</span>
+                <span class="site-footer__line" aria-hidden="true"></span>
+            </div>
+        </div>
+        <p class="site-footer__copy">© 2025 Grupo 2. Todos os direitos reservados.</p>
+    </div>
+</footer>
+
+<script th:src="@{/cliente/js/painel.js}"></script>
+</body>
+</html>
