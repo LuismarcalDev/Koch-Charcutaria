@@ -1,12 +1,9 @@
 package br.com.koch.repositorio.admin;
 
 import br.com.koch.modelo.admin.Produto;
-import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface ProdutoRepository {
-
-    List<Produto> listarTodos();
-    Produto buscarPorId(Long id);
-    void salvar(Produto produto);
-    void deletar(Long id);
+@Repository
+public interface ProdutoRepository extends JpaRepository<Produto, Long> {
 }

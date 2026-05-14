@@ -1,7 +1,6 @@
 package br.com.koch.controlador.admin;
 
 import br.com.koch.modelo.admin.Pedido;
-import br.com.koch.modelo.admin.StatusPedido;
 import br.com.koch.servico.admin.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,34 +16,33 @@ public class PedidoController {
 
     @GetMapping
     public String listar(Model model) {
-        pedidoService.verificarAtrasos();
         model.addAttribute("pedidos", pedidoService.listarTodos());
-        return "admin/pedidos";
+        return "redirect:/admin/dashboard";
     }
 
     @PostMapping("/salvar")
     public String salvar(Pedido pedido) {
         pedidoService.salvar(pedido);
-        return "redirect:/admin/pedidos";
+        return "redirect:/admin/dashboard";
     }
 
     @GetMapping("/editar/{id}")
     public String editar(@PathVariable Long id, Model model) {
         model.addAttribute("pedido", pedidoService.buscarPorId(id));
-        return "admin/pedido-form";
+        return "redirect:/admin/dashboard";
     }
 
     @GetMapping("/deletar/{id}")
     public String deletar(@PathVariable Long id) {
         pedidoService.deletar(id);
-        return "redirect:/admin/pedidos";
+        return "redirect:/admin/dashboard";
     }
 
     @PostMapping("/check/{id}")
     public String marcarEnviado(@PathVariable Long id) {
         Pedido pedido = pedidoService.buscarPorId(id);
-        pedido.setStatus(StatusPedido.ENVIADO);
+        pedido.setAtivo(false);
         pedidoService.salvar(pedido);
-        return "redirect:/admin/pedidos";
+        return "redirect:/admin/dashboard";
     }
 }

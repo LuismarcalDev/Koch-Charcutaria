@@ -1,16 +1,25 @@
 package br.com.koch.modelo.admin;
 
-import java.math.BigDecimal;
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
+@Entity
+@Table(name = "Produtos")
 public class Produto {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_produto")
     private Long id;
-    private String nome;
-    private String descricao;
-    private String imagemUrl;
-    private Integer quantidade;
-    private BigDecimal valor;
 
+    @Column(name = "nome")
+    private String nome;
+
+    @Column(name = "descricao")
+    private String descricao;
+
+    @Column(name = "tempo_producao")
+    private LocalDateTime tempoProducao;
 
     public Long getId() {
         return id;
@@ -36,29 +45,11 @@ public class Produto {
         this.descricao = descricao;
     }
 
-    public String getImagemUrl() {
-        return imagemUrl;
+    public LocalDateTime getTempoProducao() {
+        return tempoProducao;
     }
 
-    public void setImagemUrl(String imagemUrl) {
-        this.imagemUrl = imagemUrl;
+    public void setTempoProducao(LocalDateTime tempoProducao) {
+        this.tempoProducao = tempoProducao;
     }
-
-    public Integer getQuantidade() {
-        return quantidade;
-    }
-
-    public void setQuantidade(Integer quantidade) {
-        this.quantidade = quantidade;
-    }
-
-    public BigDecimal getValor() {
-        return valor;
-    }
-
-    public void setValor(BigDecimal valor) {
-        this.valor = valor;
-    }
-
-
 }

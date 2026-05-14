@@ -1,14 +1,9 @@
 package br.com.koch.repositorio.admin;
 
-import java.util.List;
 import br.com.koch.modelo.admin.Pedido;
-import br.com.koch.modelo.admin.StatusPedido;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface PedidoRepository {
-
-    List<Pedido> listarTodos();
-    Pedido buscarPorId(Long id);
-    void salvar(Pedido pedido);
-    void deletar(Long id);
-    List<Pedido> buscarPorStatus(StatusPedido status);
+@Repository
+public interface PedidoRepository extends JpaRepository<Pedido, Long> {
 }

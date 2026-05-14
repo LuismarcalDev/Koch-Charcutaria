@@ -1,55 +1,42 @@
 package br.com.koch.modelo.admin;
 
-import java.time.LocalDate;
+import jakarta.persistence.*;
+import java.math.BigDecimal;
 
+@Entity
+@Table(name = "Assinaturas")
 public class Pedido {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_assinaturas")
     private Long id;
+
+    @Column(name = "Nome_assinatura")
     private String nomeCliente;
+
+    @Column(name = "Preco_assinatura")
+    private BigDecimal preco;
+
+    @Column(name = "ativo_inativo")
+    private Boolean ativo;
+
+    @ManyToOne
+    @JoinColumn(name = "Produtos_id")
     private Produto produto;
-    private LocalDate dataEnvio;
-    private StatusPedido status;
 
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public Long getId() {
-        return id;
-    }
+    public String getNomeCliente() { return nomeCliente; }
+    public void setNomeCliente(String nomeCliente) { this.nomeCliente = nomeCliente; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public BigDecimal getPreco() { return preco; }
+    public void setPreco(BigDecimal preco) { this.preco = preco; }
 
-    public String getNomeCliente() {
-        return nomeCliente;
-    }
+    public Boolean getAtivo() { return ativo; }
+    public void setAtivo(Boolean ativo) { this.ativo = ativo; }
 
-    public void setNomeCliente(String nomeCliente) {
-        this.nomeCliente = nomeCliente;
-    }
-
-    public Produto getProduto() {
-        return produto;
-    }
-
-    public void setProduto(Produto produto) {
-        this.produto = produto;
-    }
-
-    public LocalDate getDataEnvio() {
-        return dataEnvio;
-    }
-
-    public void setDataEnvio(LocalDate dataEnvio) {
-        this.dataEnvio = dataEnvio;
-    }
-
-    public StatusPedido getStatus() {
-        return status;
-    }
-
-    public void setStatus(StatusPedido status) {
-        this.status = status;
-    }
-
-
+    public Produto getProduto() { return produto; }
+    public void setProduto(Produto produto) { this.produto = produto; }
 }

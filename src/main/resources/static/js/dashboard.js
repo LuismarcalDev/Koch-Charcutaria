@@ -20,14 +20,13 @@ function atualizarData() {
 
 atualizarData();
 
+
 function abrirModal() {
     document.getElementById('modal-titulo').innerText = 'Novo Produto';
     document.getElementById('produto-id').value = '';
     document.getElementById('produto-nome').value = '';
     document.getElementById('produto-descricao').value = '';
-    document.getElementById('produto-imagemUrl').value = '';
-    document.getElementById('produto-quantidade').value = '';
-    document.getElementById('produto-valor').value = '';
+    document.getElementById('produto-tempoProducao').value = '';
     document.getElementById('modal-produto').style.display = 'flex';
 }
 
@@ -36,9 +35,6 @@ function editarProduto(btn) {
     document.getElementById('produto-id').value = btn.dataset.id;
     document.getElementById('produto-nome').value = btn.dataset.nome;
     document.getElementById('produto-descricao').value = btn.dataset.descricao;
-    document.getElementById('produto-imagemUrl').value = btn.dataset.imagem;
-    document.getElementById('produto-quantidade').value = btn.dataset.quantidade;
-    document.getElementById('produto-valor').value = btn.dataset.valor;
     document.getElementById('modal-produto').style.display = 'flex';
 }
 

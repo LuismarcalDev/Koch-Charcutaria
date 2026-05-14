@@ -226,14 +226,7 @@ body {
 .tab-content::-webkit-scrollbar-track { background: transparent; }
 .tab-content::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 4px; }
 
-/* PRODUTOS dentro do bloco */
-.painel-header {
-    color: white;
-    font-weight: bold;
-    margin-bottom: 15px;
-    cursor: pointer;
-    font-size: 14px;
-}
+
 
 .produto-item {
     display: flex;
