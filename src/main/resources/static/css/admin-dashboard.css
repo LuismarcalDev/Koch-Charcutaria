@@ -232,7 +232,8 @@ body {
     display: flex;
     justify-content: space-between;
     color: white;
-    font-size: 13px;
+    font-size: 15px;
+    font-weight: 600;
     padding: 10px 0;
     border-bottom: 1px solid rgba(255,255,255,0.15);
     transition: 0.2s;
@@ -287,6 +288,9 @@ input[type="checkbox"] {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 15px;
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
 }
 
 .btn-novo {
@@ -316,6 +320,19 @@ input[type="checkbox"] {
 }
 
 .produto-acoes a:hover {
+    color: white;
+}
+
+.btn-editar {
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.7);
+    font-size: 12px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-editar:hover {
     color: white;
 }
 

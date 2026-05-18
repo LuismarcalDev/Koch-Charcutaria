@@ -11,11 +11,10 @@
 <nav class="navbar">
     <span class="navbar-logo">KOCH</span>
     <div class="navbar-links">
-        <a href="#">
+        <a href="#" onclick="switchTab('clientes', null); return false;">
             <img th:src="@{/imagens/ic_cadastrados.svg}" alt="cadastrados" class="navbar-icon"/>
             Clientes Cadastrados
         </a>
-        <img th:src="@{/imagens/ic_notifica.svg}" alt="notificações" class="navbar-icon"/>
     </div>
 </nav>
 
@@ -143,6 +142,22 @@
                     <p th:if="${#lists.isEmpty(pedidos)}"
                        style="color:rgba(255,255,255,0.6); font-size:13px;">
                         Nenhum pedido encontrado.
+                    </p>
+                </div>
+
+                <!-- CLIENTES -->
+                <div class="tab-content" id="tab-clientes">
+                    <h2 class="tab-titulo">Clientes Cadastrados</h2>
+                    <div th:each="cliente : ${clientes}" class="envio-item">
+                        <div class="envio-info">
+                            <p th:text="${cliente.nome}"></p>
+                            <p th:text="${cliente.telefone}"></p>
+                            <p th:text="${cliente.endereco}"></p>
+                        </div>
+                    </div>
+                    <p th:if="${#lists.isEmpty(clientes)}"
+                       style="color:rgba(255,255,255,0.6); font-size:13px;">
+                        Nenhum cliente cadastrado.
                     </p>
                 </div>
 
