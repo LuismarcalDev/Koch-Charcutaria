@@ -1,7 +1,7 @@
 package br.com.koch.modelo.admin;
 
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "Produtos")
@@ -18,8 +18,11 @@ public class Produto {
     @Column(name = "descricao")
     private String descricao;
 
-    @Column(name = "tempo_producao")
-    private LocalDateTime tempoProducao;
+    @Column(name = "imagem_url")
+    private String imagemUrl;
+
+    @Column(name = "preco")
+    private BigDecimal preco;
 
     public Long getId() {
         return id;
@@ -45,11 +48,19 @@ public class Produto {
         this.descricao = descricao;
     }
 
-    public LocalDateTime getTempoProducao() {
-        return tempoProducao;
+    public String getImagemUrl() {
+        return imagemUrl;
     }
 
-    public void setTempoProducao(LocalDateTime tempoProducao) {
-        this.tempoProducao = tempoProducao;
+    public void setImagemUrl(String imagemUrl) {
+        this.imagemUrl = imagemUrl;
+    }
+
+    public BigDecimal getPreco() {
+        return preco;
+    }
+
+    public void setPreco(BigDecimal preco) {
+        this.preco = preco;
     }
 }
