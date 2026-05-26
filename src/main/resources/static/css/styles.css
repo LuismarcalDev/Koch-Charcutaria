@@ -190,6 +190,10 @@ body {
 }
 
 /* ===== PRODUTOS / ASSINATURAS ===== */
+#link-assinar {
+    text-decoration: none;
+}
+
 .produtos {
     background-color: #fff3e0;
     padding: 60px 10%;
@@ -424,12 +428,12 @@ body {
 
 /* ===== CERTIFICADO ===== */
 .certificado {
+    background-color: #fff3e0;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     gap: 40px;
     padding: 70px 8%;
-    background-color: #fff;
 }
 
 .texto-cert {
@@ -456,14 +460,14 @@ body {
 
 .texto-qualidade {
     flex: 1;
-    border: 2px solid #F0F0F0;
+    border: 2px;
     background: rgba(217, 217, 217, 0.08);
     padding: 28px 32px;
     border-radius: 12px;
     display: flex;
     flex-direction: column;
     gap: 14px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.08);
 }
 
 .titulo-qualidade {
