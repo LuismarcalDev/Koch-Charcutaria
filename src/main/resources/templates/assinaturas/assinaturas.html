@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Koch Charcutaria - Assinaturas</title>
+    <link rel="icon" th:href="@{/Imagens/logo.png}" />
+    <link rel="stylesheet" th:href="@{/css/assinaturas.css}">
+</head>
+
+<body>
+<script src="https://unpkg.com/scrollreveal"></script>
+
+<nav class="navbar">
+    <div class="logo">
+        <a th:href="@{/}"><img th:src="@{/Imagens/kochlogo.png}" alt="Logo"></a>
+    </div>
+    <ul class="nav-links">
+        <li><a th:href="@{/}">Inicio</a></li>
+        <li><a th:href="@{/nossa-historia}">História</a></li>
+        <li><a th:href="@{/catalogo}">Catálogo</a></li>
+        <li><a th:href="@{/assinaturas}">Assinaturas</a></li>
+    </ul>
+    <a href="#" class="contact-button">
+        <img th:src="@{/Imagens/telefone.png}" class="icon" alt=""> Contato
+    </a>
+    <div class="menu-toggle">☰</div>
+</nav>
+
+<div class="alinha">
+    <div class="comercialimg">
+        <div class="texto-sobre-imagem">Cestas:<br>Apenas para Assinantes</div>
+    </div>
+</div>
+
+<div id="produtos-container"></div>
+
+<script th:src="@{/js/assinaturas.js}"></script>
+
+<footer class="rodape">
+    <div class="rodape-marca">
+        <span class="linha-deco"></span>
+        <span class="marca">KOCH</span>
+        <span class="linha-deco"></span>
+    </div>
+    <p class="subtitulo">Embutidos e suínos</p>
+    <p class="copy">© <span th:text="${anoAtual}">2026</span> Grupo 5. Todos os direitos reservados.</p>
+</footer>
+
+</body>
+</html>

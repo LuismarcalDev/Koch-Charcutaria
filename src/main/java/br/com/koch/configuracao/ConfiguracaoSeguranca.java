@@ -32,7 +32,7 @@ public class ConfiguracaoSeguranca {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/css/**", "/js/**", "/images/**", "/webjars/**", "/favicon.ico").permitAll()
+                        .requestMatchers("/css/**", "/js/**", "/images/**", "/imagens/**", "/Imagens/**", "/webjars/**", "/favicon.ico").permitAll()
                         .requestMatchers("/", "/suinos", "/carnes", "/historia", "/sobre", "/delivery", "/contato", "/carrinho").permitAll()
                         .requestMatchers("/login", "/cadastro").permitAll()
                         .requestMatchers("/cliente/login", "/cliente/cadastro").permitAll()
