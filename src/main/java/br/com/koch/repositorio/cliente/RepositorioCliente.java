@@ -1,7 +1,11 @@
 package br.com.koch.repositorio.cliente;
 
 import br.com.koch.modelo.cliente.Cliente;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface RepositorioCliente {
-    Cliente save(Cliente cliente);
+import java.util.Optional;
+
+public interface RepositorioCliente extends JpaRepository<Cliente, Integer> {
+
+    Optional<Cliente> findByUsuario_Email(String email);
 }
