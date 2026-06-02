@@ -1,4 +1,4 @@
-package br.com.koch.modelo;
+package br.com.koch.modelo.admin;
 
 public enum Perfil
 {

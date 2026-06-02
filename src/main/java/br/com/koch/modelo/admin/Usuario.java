@@ -1,4 +1,4 @@
-package br.com.koch.modelo;
+package br.com.koch.modelo.admin;
 
 import java.util.UUID;
 

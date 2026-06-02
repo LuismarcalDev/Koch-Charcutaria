@@ -1,0 +1,150 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #efefef;
+    color: #222222;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.cabecalho {
+    height: 72px;
+    background-color: #980914;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+}
+
+.cabecalho-logo img {
+    height: 46px;
+}
+
+.cabecalho-menu {
+    display: flex;
+    gap: 48px;
+}
+
+.cabecalho-menu a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.cabecalho-contato a {
+    background-color: #c88221;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 10px 18px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.conteudo {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.caixa-cadastro {
+    width: 100%;
+    max-width: 520px;
+    background-color: #f5f5f5;
+    border: 1px solid #7d7d7d;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    padding: 42px 48px;
+}
+
+.caixa-cadastro h1 {
+    text-align: center;
+    font-size: 34px;
+    font-weight: 500;
+    margin-bottom: 36px;
+    position: relative;
+}
+
+.caixa-cadastro h1::after {
+    content: "";
+    display: block;
+    width: 210px;
+    height: 3px;
+    background-color: #c88221;
+    margin: 10px auto 0;
+}
+
+.formulario-cadastro {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.campo label {
+    font-size: 14px;
+    color: #444444;
+}
+
+.campo input {
+    height: 44px;
+    padding: 0 12px;
+    border: 1px solid #cfcfcf;
+    border-radius: 4px;
+    outline: none;
+    font-size: 14px;
+    background-color: #ffffff;
+}
+
+.campo input:focus {
+    border-color: #c88221;
+}
+
+.campo small {
+    color: #b12222;
+    font-size: 13px;
+}
+
+.botao-entrar {
+    margin-top: 8px;
+    height: 46px;
+    border: none;
+    border-radius: 4px;
+    background-color: #f0a000;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.link-voltar {
+    text-align: center;
+    text-decoration: none;
+    color: #980914;
+    font-weight: 600;
+}
+
+.rodape {
+    height: 108px;
+    background-color: #980914;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.rodape img {
+    height: 54px;
+}

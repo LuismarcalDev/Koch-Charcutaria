@@ -1,4 +1,4 @@
-package br.com.koch.servico;
+package br.com.koch.servico.admin;
 
 import br.com.koch.modelo.admin.Usuario;
 import br.com.koch.repositorio.RepositorioUsuario;
@@ -12,11 +12,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ServicoDetalhesUsuario implements UserDetailsService
+public class ServicoDetalhesUsuarioAdm implements UserDetailsService
 {
     private final RepositorioUsuario repositorioUsuario;
 
-    public ServicoDetalhesUsuario(RepositorioUsuario repositorioUsuario)
+    public ServicoDetalhesUsuarioAdm(RepositorioUsuario repositorioUsuario)
     {
         this.repositorioUsuario = repositorioUsuario;
     }

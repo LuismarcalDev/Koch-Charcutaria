@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro Administrador - Koch</title>
+    <link rel="stylesheet" th:href="@{/css/admin/cadastro.css}">
+</head>
+<body>
+
+<header class="cabecalho">
+    <div class="cabecalho-logo">
+        <img src="@{/img/logo.png}" alt="Logo Koch">
+    </div>
+
+    <nav class="cabecalho-menu">
+        <a href="#">Início</a>
+        <a href="#">História</a>
+        <a href="#">Catálogo</a>
+        <a href="#">Assinaturas</a>
+    </nav>
+
+    <div class="cabecalho-contato">
+        <a href="#">Contato</a>
+    </div>
+</header>
+
+<main class="conteudo">
+    <section class="caixa-cadastro">
+        <h1>Cadastro Administrador</h1>
+
+        <form th:action="@{/cadastro}" th:object="${cadastroUsuarioRequest}" method="post" class="formulario-cadastro">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+
+            <div class="campo">
+                <label for="nome">Nome</label>
+                <input id="nome" type="text" th:field="*{nome}" placeholder="Digite seu nome">
+                <small th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></small>
+            </div>
+
+            <div class="campo">
+                <label for="email">E-mail</label>
+                <input id="email" type="email" th:field="*{email}" placeholder="Digite seu e-mail">
+                <small th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
+            </div>
+
+            <div class="campo">
+                <label for="senha">Senha</label>
+                <input id="senha" type="password" th:field="*{senha}" placeholder="Digite sua senha">
+                <small th:if="${#fields.hasErrors('senha')}" th:errors="*{senha}"></small>
+            </div>
+
+            <button type="submit" class="botao-entrar">Cadastrar</button>
+
+            <a th:href="@{/login}" class="link-voltar">Voltar para login</a>
+        </form>
+    </section>
+</main>
+
+<footer class="rodape">
+    <img th:src="@{/img/logo.png}" alt="Logo Koch">
+</footer>
+
+</body>
+</html>

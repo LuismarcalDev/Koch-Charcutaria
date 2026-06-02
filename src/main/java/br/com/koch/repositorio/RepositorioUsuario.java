@@ -1,6 +1,6 @@
 package br.com.koch.repositorio;
 
-import br.com.koch.modelo.Usuario;
+import br.com.koch.modelo.admin.Usuario;
 
 import java.util.Optional;
 

@@ -1,0 +1,188 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #efefef;
+    color: #222222;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.cabecalho {
+    height: 72px;
+    background-color: #980914;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+}
+
+.cabecalho-logo img {
+    height: 46px;
+}
+
+.cabecalho-menu {
+    display: flex;
+    gap: 48px;
+}
+
+.cabecalho-menu a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.cabecalho-contato a {
+    background-color: #c88221;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 10px 18px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.conteudo {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.caixa-login {
+    width: 100%;
+    max-width: 500px;
+    min-height: 420px;
+    background-color: #f5f5f5;
+    border: 1px solid #7d7d7d;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    padding: 42px 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.caixa-login h1 {
+    text-align: center;
+    font-size: 34px;
+    font-weight: 500;
+    margin-bottom: 36px;
+    position: relative;
+}
+
+.caixa-login h1::after {
+    content: "";
+    display: block;
+    width: 180px;
+    height: 3px;
+    background-color: #c88221;
+    margin: 10px auto 0;
+}
+
+.formulario-login {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.campo label {
+    font-size: 14px;
+    color: #444444;
+}
+
+.campo input {
+    height: 44px;
+    padding: 0 12px;
+    border: 1px solid #cfcfcf;
+    border-radius: 4px;
+    outline: none;
+    font-size: 14px;
+    background-color: #ffffff;
+}
+
+.campo input:focus {
+    border-color: #c88221;
+}
+
+.botao-entrar {
+    margin-top: 8px;
+    height: 46px;
+    border: none;
+    border-radius: 4px;
+    background-color: #f0a000;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.botao-entrar:hover {
+    filter: brightness(0.95);
+}
+
+.mensagem {
+    padding: 12px;
+    border-radius: 4px;
+    margin-bottom: 18px;
+    font-size: 14px;
+}
+
+.mensagem.erro {
+    background-color: #ffdede;
+    color: #8b1f1f;
+    border: 1px solid #e7a4a4;
+}
+
+.mensagem.sucesso {
+    background-color: #dff5df;
+    color: #1f6b1f;
+    border: 1px solid #9fd19f;
+}
+
+.rodape {
+    height: 108px;
+    background-color: #980914;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.rodape img {
+    height: 54px;
+}
+
+@media (max-width: 768px) {
+    .cabecalho {
+        flex-direction: column;
+        gap: 10px;
+        height: auto;
+        padding: 16px;
+    }
+
+    .cabecalho-menu {
+        gap: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .caixa-login {
+        padding: 32px 24px;
+    }
+
+    .caixa-login h1 {
+        font-size: 28px;
+    }
+}

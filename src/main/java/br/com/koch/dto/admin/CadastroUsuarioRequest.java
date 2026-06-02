@@ -1,4 +1,4 @@
-package br.com.koch.dto;
+package br.com.koch.dto.admin;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
