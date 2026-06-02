@@ -1,33 +1,18 @@
 <!DOCTYPE html>
-<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KOCH Embutidos e Defumados</title>
     <link rel="icon" th:href="@{/img/logo.png}">
+    <link rel="stylesheet" th:href="@{/css/site-layout.css}">
     <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 
-<body>
+<body class="site-body">
 
-    <!-- ========== NAVEGAÇÃO ========== -->
-    <nav class="navbar">
-
-        <a th:href="@{/}" class="logo">
-            <img src="https://raw.githubusercontent.com/Julia-berti/imagens/refs/heads/master/logo_koch.png" alt="Logo Koch">
-        </a>
-
-        <ul class="nav-links">
-            <li><a th:href="@{/}">Início</a></li>
-            <li><a th:href="@{/nossa-historia.html}">Catálogo</a></li>
-            <li><a th:href="@{/nossa-historia.html}">História</a></li>
-            <li><a th:href="@{#revendedores}">Assinaturas</a></li>
-            <li><a th:href="@{/admin/login.html}">Login</a></li>
-        </ul>
-
-        <a href="https://wa.me/5545999730157?text=ola%20tudo%20bem%3F" class="contact-button">Contato</a>
-
-    </nav>
+    <div th:replace="~{fragments/site-header :: header}"></div>
 
 
     <!-- ========== BANNER PRINCIPAL ========== -->
@@ -112,7 +97,7 @@
                 mensalmente, recebe uma seleção especial de produtos artesanais.
             </p>
 
-            <a th:href="@{#revendedores}" id="link-assinar">
+            <a th:href="@{/assinaturas}" id="link-assinar">
                 <button class="btncomprar">
                     Assinar
                     <img src="https://raw.githubusercontent.com/Julia-berti/imagens/refs/heads/master/carrinhoooo%201.png" class="icone-btn" alt="">
@@ -135,10 +120,10 @@
                     em produtos como copas, lombos, pastrami, pancettas, bacons e linguiças, por meio de
                     processos tradicionais de toilette, cura, defumação, resfriamento e embalagem.
                 </p>
-                <button class="btn-saibamais">
+                <a th:href="@{/catalogo}" class="btn-saibamais">
                     Veja Nosso Catálogo
                     <img src="https://raw.githubusercontent.com/Julia-berti/imagens/refs/heads/master/cardapio%201.png" class="icone-sb" alt="">
-                </button>
+                </a>
             </div>
         </div>
     </section>
@@ -236,13 +221,8 @@
     </section>
 
 
-    <!-- ========== RODAPÉ ========== -->
-    <footer class="rodape">
-        
-        <p class="marca"><span>|</span> KOCH <span>|</span></p>
-        <p class="subtitulo">Embutidos e Defumados</p>
-        <p class="copy">© 2025 Grupo Koch. Todos os direitos reservados.</p>
-    </footer>
+    <div th:replace="~{fragments/site-footer :: footer}"></div>
 
+<script th:src="@{/js/site-nav.js}" defer></script>
 </body>
 </html>

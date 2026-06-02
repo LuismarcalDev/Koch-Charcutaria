@@ -1,31 +1,18 @@
 <!DOCTYPE html>
-<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Administrador - Koch</title>
+    <link rel="stylesheet" th:href="@{/css/site-layout.css}">
     <link rel="stylesheet" th:href="@{/css/admin/login.css}">
 </head>
-<body>
+<body class="site-body">
 
-<header class="cabecalho">
-    <div class="cabecalho-logo">
-        <img th:src="@{/img/logo.png}" alt="Logo Koch">
-    </div>
+<div th:replace="~{fragments/site-header :: header}"></div>
 
-    <nav class="cabecalho-menu">
-        <a href="#">Início</a>
-        <a href="#">História</a>
-        <a href="#">Catálogo</a>
-        <a href="#">Assinaturas</a>
-    </nav>
-
-    <div class="cabecalho-contato">
-        <a href="#">Contato</a>
-    </div>
-</header>
-
-<main class="conteudo">
+<main class="conteudo page-main">
     <section class="caixa-login">
         <h1>Login Administrador</h1>
 
@@ -38,7 +25,7 @@
         </div>
 
         <div class="mensagem sucesso" th:if="${param.cadastroSucesso}">
-            Cadastro realizado com sucesso.
+            Cadastro realizado com sucesso. Faça login para continuar.
         </div>
 
         <form th:action="@{/login}" method="post" class="formulario-login">
@@ -56,12 +43,16 @@
 
             <button type="submit" class="botao-entrar">Entrar</button>
         </form>
+
+        <p class="auth-links">
+            <a th:href="@{/cadastro}">Criar conta de administrador</a>
+            <span aria-hidden="true"> · </span>
+            <a th:href="@{/cliente/login}">Área do cliente</a>
+        </p>
     </section>
 </main>
 
-<footer class="rodape">
-    <img th:src="@{/img/logo.png}" alt="Logo Koch">
-</footer>
-
+<div th:replace="~{fragments/site-footer :: footer}"></div>
+<script th:src="@{/js/site-nav.js}" defer></script>
 </body>
 </html>

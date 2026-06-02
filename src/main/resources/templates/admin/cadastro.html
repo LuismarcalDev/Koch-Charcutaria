@@ -1,31 +1,18 @@
 <!DOCTYPE html>
-<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro Administrador - Koch</title>
+    <link rel="stylesheet" th:href="@{/css/site-layout.css}">
     <link rel="stylesheet" th:href="@{/css/admin/cadastro.css}">
 </head>
-<body>
+<body class="site-body">
 
-<header class="cabecalho">
-    <div class="cabecalho-logo">
-        <img src="@{/img/logo.png}" alt="Logo Koch">
-    </div>
+<div th:replace="~{fragments/site-header :: header}"></div>
 
-    <nav class="cabecalho-menu">
-        <a href="#">Início</a>
-        <a href="#">História</a>
-        <a href="#">Catálogo</a>
-        <a href="#">Assinaturas</a>
-    </nav>
-
-    <div class="cabecalho-contato">
-        <a href="#">Contato</a>
-    </div>
-</header>
-
-<main class="conteudo">
+<main class="conteudo page-main">
     <section class="caixa-cadastro">
         <h1>Cadastro Administrador</h1>
 
@@ -57,9 +44,7 @@
     </section>
 </main>
 
-<footer class="rodape">
-    <img th:src="@{/img/logo.png}" alt="Logo Koch">
-</footer>
-
+<div th:replace="~{fragments/site-footer :: footer}"></div>
+<script th:src="@{/js/site-nav.js}" defer></script>
 </body>
 </html>

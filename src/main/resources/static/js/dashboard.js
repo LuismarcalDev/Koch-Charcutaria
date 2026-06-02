@@ -23,7 +23,8 @@ function abrirModal() {
     document.getElementById('produto-id').value = '';
     document.getElementById('produto-nome').value = '';
     document.getElementById('produto-descricao').value = '';
-    document.getElementById('produto-imagemUrl').value = '';
+    document.getElementById('produto-imagemArquivo').value = '';
+    document.getElementById('produto-imagem-atual').style.display = 'none';
     document.getElementById('produto-preco').value = '';
     document.getElementById('modal-produto').style.display = 'flex';
 }
@@ -33,7 +34,14 @@ function editarProduto(btn) {
     document.getElementById('produto-id').value = btn.dataset.id;
     document.getElementById('produto-nome').value = btn.dataset.nome;
     document.getElementById('produto-descricao').value = btn.dataset.descricao;
-    document.getElementById('produto-imagemUrl').value = btn.dataset.imagem;
+    document.getElementById('produto-imagemArquivo').value = '';
+    var imgAtual = document.getElementById('produto-imagem-atual');
+    if (btn.dataset.imagem) {
+        imgAtual.textContent = 'Imagem atual: ' + btn.dataset.imagem;
+        imgAtual.style.display = 'block';
+    } else {
+        imgAtual.style.display = 'none';
+    }
     document.getElementById('produto-preco').value = btn.dataset.preco;
     document.getElementById('modal-produto').style.display = 'flex';
 }

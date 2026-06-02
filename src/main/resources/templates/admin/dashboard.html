@@ -1,14 +1,18 @@
 <!DOCTYPE html>
-<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Koch</title>
+    <link rel="stylesheet" th:href="@{/css/site-layout.css}">
     <link rel="stylesheet" th:href="@{/css/admin-dashboard.css}">
 </head>
-<body>
+<body class="site-body admin-dashboard-body">
 
-<nav class="navbar">
+<div th:replace="~{fragments/site-header :: header}"></div>
+
+<nav class="navbar dashboard-inner-nav">
     <span class="navbar-logo">KOCH</span>
     <div class="navbar-links">
         <a href="#" onclick="switchTab('clientes', null); return false;">
@@ -36,10 +40,13 @@
                 <span>Envios</span>
             </a>
         </nav>
-        <a th:href="@{/logout}" class="sidebar-sair">
-            <img th:src="@{/imagens/ic_sair.svg}" alt="sair" class="sidebar-icon"/>
-            <span>Sair</span>
-        </a>
+        <form th:action="@{/logout}" method="post" class="sidebar-sair-form">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+            <button type="submit" class="sidebar-sair">
+                <img th:src="@{/imagens/ic_sair.svg}" alt="sair" class="sidebar-icon"/>
+                <span>Sair</span>
+            </button>
+        </form>
     </aside>
 
     <main class="main-content">
@@ -55,7 +62,7 @@
                     <span>Próximos Envios (Pendentes)</span>
                 </div>
                 <div th:each="pedido : ${pedidosPendentes}" class="proximos-envios-body">
-                    <p th:text="${pedido.nomeCliente + ' - ' + pedido.produto.nome}"></p>
+                    <p th:text="${pedido.cliente.nome + ' - ' + pedido.produto.nome}"></p>
                 </div>
                 <p th:if="${#lists.isEmpty(pedidosPendentes)}"
                    style="color:rgba(255,255,255,0.6); font-size:13px;">
@@ -85,7 +92,7 @@
                     <h2 class="tab-titulo">Agenda do Mês</h2>
                     <div th:each="pedido : ${pedidosDoMes}" class="envio-item">
                         <div class="envio-info">
-                            <p th:text="${pedido.nomeCliente}"></p>
+                            <p th:text="${pedido.cliente.nome}"></p>
                             <p th:text="${pedido.produto.nome}"></p>
                         </div>
                         <span th:if="${!pedido.ativo}"
@@ -130,10 +137,11 @@
                     <h2 class="tab-titulo">Envios</h2>
                     <div th:each="pedido : ${pedidos}" class="envio-item">
                         <div class="envio-info">
-                            <p th:text="${pedido.nomeCliente}"></p>
+                            <p th:text="${pedido.cliente.nome}"></p>
                             <p th:text="${pedido.produto.nome}"></p>
                         </div>
                         <form th:action="@{/admin/pedidos/check/{id}(id=${pedido.id})}" method="post">
+                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                             <label>
                                 <input type="checkbox" onchange="this.form.submit()"
                                        th:checked="${!pedido.ativo}">
@@ -175,10 +183,11 @@
                 <h2 id="modal-titulo">Novo Produto</h2>
                 <button onclick="fecharModal()" class="modal-fechar">✕</button>
             </div>
-            <form th:action="@{/admin/produtos/salvar}" method="post">
+            <form th:action="@{/admin/produtos/salvar}" method="post" enctype="multipart/form-data">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                 <input type="hidden" id="produto-id" name="id"/>
                 <div class="modal-campo">
-                    <label>Nome</label>
+                    <label>Nome da cesta</label>
                     <input type="text" name="nome" id="produto-nome" required/>
                 </div>
                 <div class="modal-campo">
@@ -186,8 +195,9 @@
                     <textarea name="descricao" id="produto-descricao"></textarea>
                 </div>
                 <div class="modal-campo">
-                    <label>URL da Imagem</label>
-                    <input type="text" name="imagemUrl" id="produto-imagemUrl"/>
+                    <label>Imagem da cesta</label>
+                    <input type="file" name="imagemArquivo" id="produto-imagemArquivo" accept="image/*"/>
+                    <p id="produto-imagem-atual" class="modal-imagem-atual" style="display:none; margin-top:8px; font-size:12px; color:#ccc;"></p>
                 </div>
                 <div class="modal-campo">
                     <label>Preço</label>
@@ -203,6 +213,9 @@
 
 </div>
 
+<div th:replace="~{fragments/site-footer :: footer}"></div>
+
+<script th:src="@{/js/site-nav.js}" defer></script>
 <script th:src="@{/js/dashboard.js}"></script>
 </body>
 </html>

@@ -2,16 +2,22 @@ package br.com.koch.servico.admin;
 
 import br.com.koch.modelo.admin.Produto;
 import br.com.koch.repositorio.admin.ProdutoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
-@Component
+@Service
 public class ProdutoService {
 
-    @Autowired
-    private ProdutoRepository produtoRepository;
+    private final ProdutoRepository produtoRepository;
+    private final ServicoArquivoImagem servicoArquivoImagem;
+
+    public ProdutoService(ProdutoRepository produtoRepository, ServicoArquivoImagem servicoArquivoImagem) {
+        this.produtoRepository = produtoRepository;
+        this.servicoArquivoImagem = servicoArquivoImagem;
+    }
 
     public List<Produto> listarTodos() {
         return produtoRepository.findAll();
@@ -21,7 +27,18 @@ public class ProdutoService {
         return produtoRepository.findById(id).orElse(null);
     }
 
-    public void salvar(Produto produto) {
+    public void salvar(Produto produto, MultipartFile imagemArquivo) throws IOException {
+        if (produto.getId() != null) {
+            Produto existente = buscarPorId(produto.getId());
+            if (existente != null && (imagemArquivo == null || imagemArquivo.isEmpty())) {
+                produto.setImagemUrl(existente.getImagemUrl());
+            }
+        }
+
+        if (imagemArquivo != null && !imagemArquivo.isEmpty()) {
+            produto.setImagemUrl(servicoArquivoImagem.salvarImagemCesta(imagemArquivo));
+        }
+
         produtoRepository.save(produto);
     }
 

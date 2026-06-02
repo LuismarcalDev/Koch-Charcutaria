@@ -1,51 +1,69 @@
 <!DOCTYPE html>
-<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Koch Charcutaria - Assinaturas</title>
-    <link rel="icon" th:href="@{/Imagens/logo.png}" />
+    <link rel="icon" th:href="@{/imagens/logo.png}" />
+    <link rel="stylesheet" th:href="@{/css/site-layout.css}">
     <link rel="stylesheet" th:href="@{/css/assinaturas.css}">
 </head>
 
-<body>
+<body class="site-body" id="navI">
 <script src="https://unpkg.com/scrollreveal"></script>
 
-<nav class="navbar">
-    <div class="logo">
-        <a th:href="@{/}"><img th:src="@{/Imagens/kochlogo.png}" alt="Logo"></a>
+<div th:replace="~{fragments/site-header :: header}"></div>
+
+<main class="page-main">
+    <div class="alinha">
+        <div class="comercialimg">
+            <div class="texto-sobre-imagem">Cestas:<br>Apenas para Assinantes</div>
+        </div>
     </div>
-    <ul class="nav-links">
-        <li><a th:href="@{/}" title="Ir para a página inicial">Inicio</a></li>
-        <li><a th:href="@{/nossa-historia}" title="Conheça a história da Koch">História</a></li>
-        <li><a th:href="@{/catalogo}" title="Veja nossos produtos">Catálogo</a></li>
-        <li><a th:href="@{/assinaturas}" title="Conheça nossos planos de assinatura">Assinaturas</a></li>
-    </ul>
-    <a href="#" class="contact-button">
-        <img th:src="@{/Imagens/telefone.png}" class="icon" alt=""> Contato
-    </a>
-    <div class="menu-toggle">☰</div>
-</nav>
 
-<div class="alinha">
-    <div class="comercialimg">
-        <div class="texto-sobre-imagem">Cestas:<br>Apenas para Assinantes</div>
+    <div th:if="${msgAssinaturaOk}" class="assinaturas-alerta assinaturas-alerta--ok" th:text="${msgAssinaturaOk}"></div>
+    <div th:if="${msgAssinaturaErro}" class="assinaturas-alerta assinaturas-alerta--erro" th:text="${msgAssinaturaErro}"></div>
+
+    <div id="produtos-container">
+        <p th:if="${#lists.isEmpty(cestas)}" class="assinaturas-vazio">
+            Nenhuma cesta cadastrada no momento. O administrador pode criar cestas no painel admin.
+        </p>
+
+        <div class="produto" th:each="cesta : ${cestas}">
+            <div class="descricao">
+                <div class="foto-card">
+                    <img class="produto-foto"
+                         th:src="${cesta.imagemUrl != null ? cesta.imagemUrl : '/imagens/img1catalogo.jpeg'}"
+                         th:alt="${cesta.nome}">
+                    <div class="foto-card-preco"
+                         th:text="'R$ ' + ${#numbers.formatDecimal(cesta.preco, 1, 2)}">R$ 0,00</div>
+
+                    <form th:action="@{/assinaturas/{id}/assinar(id=${cesta.id})}" method="post" class="form-assinar">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                        <button type="submit" class="foto-card-btn">Assinar 🍽️</button>
+                    </form>
+                </div>
+                <div class="descricao-texto">
+                    <span class="subtitulo-cesta">Cesta</span>
+                    <strong class="produto-nome" th:text="${cesta.nome}">Nome</strong>
+                    <p th:text="${cesta.descricao}">Descrição da cesta.</p>
+                </div>
+            </div>
+            <div class="bloco-selos">
+                <img th:src="@{/imagens/selo1.png}" alt="Selo 1">
+                <img th:src="@{/imagens/selo2.png}" alt="Selo 2">
+                <img th:src="@{/imagens/selo3.png}" alt="Selo 3">
+                <img th:src="@{/imagens/selo4.png}" alt="Selo 4">
+                <img th:src="@{/imagens/selo5.png}" alt="Selo 5">
+            </div>
+        </div>
     </div>
-</div>
+</main>
 
-<div id="produtos-container"></div>
+<div th:replace="~{fragments/site-footer :: footer}"></div>
 
+<script th:src="@{/js/site-nav.js}" defer></script>
 <script th:src="@{/js/assinaturas.js}"></script>
-
-<footer class="rodape">
-    <div class="rodape-marca">
-        <span class="linha-deco"></span>
-        <span class="marca">KOCH</span>
-        <span class="linha-deco"></span>
-    </div>
-    <p class="subtitulo">Embutidos e suínos</p>
-    <p class="copy">© <span th:text="${anoAtual}">2026</span> Grupo 5. Todos os direitos reservados.</p>
-</footer>
-
 </body>
 </html>

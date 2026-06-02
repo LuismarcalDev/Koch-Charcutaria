@@ -1,19 +1,21 @@
 package br.com.koch.servico;
 
-import br.com.koch.modelo.admin.ClienteListar;
-import br.com.koch.repositorio.ClienteRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import br.com.koch.modelo.cliente.Cliente;
+import br.com.koch.repositorio.cliente.RepositorioCliente;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Component
+@Service
 public class ClienteService {
 
-    @Autowired
-    private ClienteRepository clienteRepository;
+    private final RepositorioCliente repositorioCliente;
 
-    public List<ClienteListar> listarTodos() {
-        return clienteRepository.findAll();
+    public ClienteService(RepositorioCliente repositorioCliente) {
+        this.repositorioCliente = repositorioCliente;
+    }
+
+    public List<Cliente> listarTodos() {
+        return repositorioCliente.findAll();
     }
 }

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,39 +28,7 @@
     </div>
 </div>
 
-<header class="topbar">
-    <img th:src="@{/cliente/img/logo.png}" alt="Logo Koch">
-    <input type="checkbox" id="menu-toggle" class="menu-toggle">
-    <label for="menu-toggle" class="menu-button" aria-label="Abrir menu">
-        <i class="fa-solid fa-bars"></i>
-    </label>
-    <div class="links">
-        <a th:href="@{/}">Inicio</a>
-        <a th:href="@{/suinos}">Suinos</a>
-        <a th:href="@{/carnes}">Carnes</a>
-        <a th:href="@{/historia}">Historia</a>
-        <a th:href="@{/sobre}">Sobre</a>
-        <a th:href="@{/delivery}">Delivery</a>
-        <a th:href="@{/cliente/login}" class="mobile-action"> <!-- era: /login -->
-            <i class="fa-solid fa-user"></i>Usuario
-        </a>
-        <a th:href="@{/carrinho}" class="mobile-action">
-            <i class="fa-solid fa-cart-shopping"></i>Carrinho
-        </a>
-        <a th:href="@{/contato}" class="mobile-action">
-            <i class="fa-solid fa-phone"></i>Contato
-        </a>
-    </div>
-    <div class="icons">
-        <i class="fa-solid fa-user"></i>
-        <i class="fa-solid fa-cart-shopping"></i>
-        <button type="button">
-            <i class="fa-solid fa-phone"></i>
-            Contato
-        </button>
-    </div>
-    <label for="menu-toggle" class="menu-overlay" aria-hidden="true"></label>
-</header>
+<div th:replace="~{fragments/cliente-topbar :: topbar}"></div>
 
 <main>
     <div class="login">
@@ -67,20 +36,21 @@
         <div class="subLogin">
             <h2>Faça Login</h2>
 
-            <form th:action="@{/cliente/login}" method="post"> <!-- era: /login -->
+            <form th:action="@{/cliente/login}" method="post">
                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                <input type="hidden" name="redirect" th:if="${param.redirect != null}" th:value="${param.redirect[0]}">
                 <div class="inputs">
                     <div class="solo">
                         <label for="email">Email</label>
                         <input type="email" id="email" name="email" placeholder="Informe seu E-mail" required>
                     </div>
                     <div class="solo">
-                        <label for="senha">Senha</label>
-                        <input type="password" id="password" name="password" placeholder="Informe sua Senha" required> <!-- name deve ser "password" para o Spring Security -->
+                        <label for="password">Senha</label>
+                        <input type="password" id="password" name="password" placeholder="Informe sua Senha" required>
                     </div>
                     <div class="double">
                         <button type="submit">Fazer Login</button>
-                        <p><a th:href="@{/cliente/cadastro}">Cadastre-se</a></p> <!-- era: onclick gambiarra -->
+                        <p><a th:href="@{/cliente/cadastro}">Cadastre-se</a></p>
                     </div>
                 </div>
             </form>
@@ -88,25 +58,8 @@
     </div>
 </main>
 
-<footer class="site-footer">
-    <div class="site-footer__inner">
-        <div class="site-footer__brand" aria-label="KOCH Embutidos e suínos">
-            <div class="site-footer__deco site-footer__deco--left">
-                <span class="site-footer__line" aria-hidden="true"></span>
-                <span class="site-footer__bar" aria-hidden="true">|</span>
-            </div>
-            <div class="site-footer__titles">
-                <p class="site-footer__name">KOCH</p>
-                <p class="site-footer__tagline">Embutidos e suínos</p>
-            </div>
-            <div class="site-footer__deco site-footer__deco--right">
-                <span class="site-footer__bar" aria-hidden="true">|</span>
-                <span class="site-footer__line" aria-hidden="true"></span>
-            </div>
-        </div>
-        <p class="site-footer__copy">© 2025 Grupo 2. Todos os direitos reservados.</p>
-    </div>
-</footer>
+<div th:replace="~{fragments/cliente-footer :: footer}"></div>
+
 <script>
 (function () {
     var params = new URLSearchParams(window.location.search);

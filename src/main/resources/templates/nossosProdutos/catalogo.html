@@ -1,35 +1,21 @@
 <!DOCTYPE html>
-<html lang="PT-BR" xmlns:th="http://www.thymeleaf.org">
+<html lang="PT-BR" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Koch Charcutaria - Catálogo</title>
     <link rel="icon" th:href="@{/imagens/logo.png}" />
+    <link rel="stylesheet" th:href="@{/css/site-layout.css}">
     <link rel="stylesheet" th:href="@{/css/catalogo.css}">
 </head>
 
-<body id="navI">
+<body id="navI" class="site-body">
 <script src="https://unpkg.com/scrollreveal"></script>
 
-<nav class="navbar">
-    <div class="logo">
-        <a th:href="@{/}"><img th:src="@{/imagens/kochlogo.png}" alt="Logo"></a>
-    </div>
+<div th:replace="~{fragments/site-header :: header}"></div>
 
-    <ul class="nav-links">
-        <li><a th:href="@{/}" title="Ir para a página inicial">Inicio</a></li>
-        <li><a href="#historia" title="Conheça a história da Koch">História</a></li>
-        <li><a href="#catalogo-produtos" title="Veja nossos produtos">Catálogo</a></li>
-        <li><a th:href="@{/assinaturas}" title="Conheça nossos planos de assinatura">Assinaturas</a></li>
-    </ul>
-
-    <a th:href="@{/contato}" class="contact-button">
-        <img th:src="@{/imagens/telefone.png}" class="icon" alt=""> Contato
-    </a>
-
-    <div class="menu-toggle">☰</div>
-</nav>
-
+<main class="page-main">
 <!-- Seção Sobre -->
 <section class="sobre" id="historia">
     <div class="texto">
@@ -76,18 +62,11 @@
 
     </div>
 </div>
+</main>
 
-<!-- Footer -->
-<footer class="rodape">
-    <div class="rodape-marca">
-        <span class="linha-deco"></span>
-        <span class="marca">KOCH</span>
-        <span class="linha-deco"></span>
-    </div>
-    <p class="subtitulo">Embutidos e suínos</p>
-    <p class="copy">© <span th:text="${anoAtual}">2026</span> Grupo 5. Todos os direitos reservados.</p>
-</footer>
+<div th:replace="~{fragments/site-footer :: footer}"></div>
 
+<script th:src="@{/js/site-nav.js}" defer></script>
 <script th:src="@{/js/catalogo.js}"></script>
 </body>
 </html>

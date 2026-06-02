@@ -1,5 +1,6 @@
 package br.com.koch.modelo.admin;
 
+import br.com.koch.modelo.cliente.Cliente;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 
@@ -12,31 +13,68 @@ public class Pedido {
     @Column(name = "id_assinaturas")
     private Long id;
 
-    @Column(name = "Nome_assinatura")
-    private String nomeCliente;
+    @Column(name = "Nome_assinatura", nullable = false)
+    private String nomeAssinatura;
 
-    @Column(name = "Preco_assinatura")
+    @Column(name = "Preco_assinatura", nullable = false)
     private BigDecimal preco;
 
-    @Column(name = "ativo_inativo")
+    @Column(name = "ativo_inativo", nullable = false)
     private Boolean ativo;
 
-    @ManyToOne
-    @JoinColumn(name = "Produtos_id")
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "Produtos_id", nullable = false)
     private Produto produto;
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "Clientes_id", nullable = false)
+    private Cliente cliente;
 
-    public String getNomeCliente() { return nomeCliente; }
-    public void setNomeCliente(String nomeCliente) { this.nomeCliente = nomeCliente; }
+    public Long getId() {
+        return id;
+    }
 
-    public BigDecimal getPreco() { return preco; }
-    public void setPreco(BigDecimal preco) { this.preco = preco; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public Boolean getAtivo() { return ativo; }
-    public void setAtivo(Boolean ativo) { this.ativo = ativo; }
+    public String getNomeAssinatura() {
+        return nomeAssinatura;
+    }
 
-    public Produto getProduto() { return produto; }
-    public void setProduto(Produto produto) { this.produto = produto; }
+    public void setNomeAssinatura(String nomeAssinatura) {
+        this.nomeAssinatura = nomeAssinatura;
+    }
+
+    public BigDecimal getPreco() {
+        return preco;
+    }
+
+    public void setPreco(BigDecimal preco) {
+        this.preco = preco;
+    }
+
+    public Boolean getAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
+    }
+
+    public Produto getProduto() {
+        return produto;
+    }
+
+    public void setProduto(Produto produto) {
+        this.produto = produto;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
 }

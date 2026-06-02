@@ -6,6 +6,8 @@ import br.com.koch.dto.cliente.PainelEnderecoDto;
 import br.com.koch.dto.cliente.PainelUsuarioDto;
 import br.com.koch.modelo.cliente.Cliente;
 import br.com.koch.repositorio.cliente.RepositorioCliente;
+import br.com.koch.modelo.admin.Pedido;
+import br.com.koch.servico.admin.ServicoAssinatura;
 import br.com.koch.servico.cliente.ServicoCadastroCliente;
 import br.com.koch.servico.cliente.ServicoPainelCliente;
 import jakarta.validation.Valid;
@@ -20,16 +22,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/cliente")
 public class ClienteController {
 
+    /** Cards de demonstração no painel (além das assinaturas reais do banco). */
     private static final List<PainelAssinaturaDto> ASSINATURAS_EXEMPLO = List.of(
             new PainelAssinaturaDto(
-                    1,
-                    "Cesta Suínos",
+                    -1,
+                    "Cesta Suínos (exemplo)",
                     "foto.png",
                     "Receba produtos selecionados todo mês com a qualidade Koch.",
                     new BigDecimal("29.00"),
@@ -41,15 +46,18 @@ public class ClienteController {
     private final ServicoCadastroCliente servicoCadastroCliente;
     private final RepositorioCliente repositorioCliente;
     private final ServicoPainelCliente servicoPainelCliente;
+    private final ServicoAssinatura servicoAssinatura;
 
     public ClienteController(
             ServicoCadastroCliente servicoCadastroCliente,
             RepositorioCliente repositorioCliente,
-            ServicoPainelCliente servicoPainelCliente
+            ServicoPainelCliente servicoPainelCliente,
+            ServicoAssinatura servicoAssinatura
     ) {
         this.servicoCadastroCliente = servicoCadastroCliente;
         this.repositorioCliente = repositorioCliente;
         this.servicoPainelCliente = servicoPainelCliente;
+        this.servicoAssinatura = servicoAssinatura;
     }
 
     @GetMapping("/login")
@@ -152,7 +160,32 @@ public class ClienteController {
                 : new PainelEnderecoDto(cliente.getEndereco());
         model.addAttribute("enderecoForm", enderecoForm);
 
-        model.addAttribute("assinaturas", ASSINATURAS_EXEMPLO);
+        List<PainelAssinaturaDto> assinaturas = new ArrayList<>(
+                servicoAssinatura.listarPorCliente(cliente.getId()).stream()
+                        .filter(p -> Boolean.TRUE.equals(p.getAtivo()))
+                        .map(ClienteController::painelAssinaturaDtoDe)
+                        .collect(Collectors.toList())
+        );
+        assinaturas.addAll(ASSINATURAS_EXEMPLO);
+        model.addAttribute("assinaturas", assinaturas);
+    }
+
+    private static PainelAssinaturaDto painelAssinaturaDtoDe(Pedido pedido) {
+        String imagem = pedido.getProduto() != null && pedido.getProduto().getImagemUrl() != null
+                ? pedido.getProduto().getImagemUrl()
+                : "/cliente/img/foto.png";
+        String descricao = pedido.getProduto() != null && pedido.getProduto().getDescricao() != null
+                ? pedido.getProduto().getDescricao()
+                : "Assinatura Koch Charcutaria.";
+        return new PainelAssinaturaDto(
+                pedido.getId().intValue(),
+                pedido.getNomeAssinatura(),
+                imagem,
+                descricao,
+                pedido.getPreco(),
+                "Mensal",
+                "Koch"
+        );
     }
 
     private static PainelUsuarioDto painelUsuarioDtoDe(Cliente cliente) {

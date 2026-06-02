@@ -16,24 +16,4 @@ ScrollReveal().reveal(".bloco-selos", {
   origin: "top", duration: 2000, distance: "50px", easing: "ease-out", interval: 200
 });
 
-// Menu hamburguer (mobile)
-const menuToggle = document.querySelector(".menu-toggle");
-const navLinks = document.querySelector(".nav-links");
-
-menuToggle.addEventListener("click", () => {
-  navLinks.classList.toggle("show");
-  document.body.style.overflow =
-    navLinks.classList.contains("show") ? "hidden" : "auto";
-});
-
-// Scroll suave com offset para não ficar atrás da navbar
-document.querySelectorAll('a[href^="#"]').forEach(link => {
-  link.addEventListener('click', function(e) {
-    const alvo = document.querySelector(this.getAttribute('href'));
-    if (!alvo) return;
-    e.preventDefault();
-    const offset = 80; // altura da navbar
-    const topo = alvo.getBoundingClientRect().top + window.scrollY - offset;
-    window.scrollTo({ top: topo, behavior: 'smooth' });
-  });
-});
+// Menu mobile e scroll de âncoras: site-nav.js

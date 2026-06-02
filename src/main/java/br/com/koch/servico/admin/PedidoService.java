@@ -2,17 +2,19 @@ package br.com.koch.servico.admin;
 
 import br.com.koch.modelo.admin.Pedido;
 import br.com.koch.repositorio.admin.PedidoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component
+@Service
 public class PedidoService {
 
-    @Autowired
-    private PedidoRepository pedidoRepository;
+    private final PedidoRepository pedidoRepository;
+
+    public PedidoService(PedidoRepository pedidoRepository) {
+        this.pedidoRepository = pedidoRepository;
+    }
 
     public List<Pedido> listarTodos() {
         return pedidoRepository.findAll();
@@ -32,13 +34,11 @@ public class PedidoService {
 
     public List<Pedido> buscarPendentes() {
         return pedidoRepository.findAll().stream()
-                .filter(p -> p.getAtivo())
+                .filter(p -> Boolean.TRUE.equals(p.getAtivo()))
                 .collect(Collectors.toList());
     }
 
     public List<Pedido> buscarEnviosDoMes() {
-        return pedidoRepository.findAll().stream()
-                .filter(p -> p.getAtivo())
-                .collect(Collectors.toList());
+        return buscarPendentes();
     }
 }
