@@ -17,31 +17,17 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/cliente")
 public class ClienteController {
-
-    /** Cards de demonstração no painel (além das assinaturas reais do banco). */
-    private static final List<PainelAssinaturaDto> ASSINATURAS_EXEMPLO = List.of(
-            new PainelAssinaturaDto(
-                    -1,
-                    "Cesta Suínos (exemplo)",
-                    "foto.png",
-                    "Receba produtos selecionados todo mês com a qualidade Koch.",
-                    new BigDecimal("29.00"),
-                    "Mensal",
-                    "Koch"
-            )
-    );
 
     private final ServicoCadastroCliente servicoCadastroCliente;
     private final RepositorioCliente repositorioCliente;
@@ -113,6 +99,25 @@ public class ClienteController {
         return "redirect:/cliente/painel?aba=enderecos";
     }
 
+    @PostMapping("/painel/assinaturas/{id}/desativar")
+    public String desativarAssinatura(
+            @PathVariable Long id,
+            Authentication authentication,
+            RedirectAttributes redirectAttributes
+    ) {
+        if (id == null || id < 1) {
+            redirectAttributes.addFlashAttribute("msgAssinaturaErro", "Não é possível desativar esta assinatura.");
+            return "redirect:/cliente/painel?aba=assinaturas";
+        }
+        try {
+            servicoAssinatura.desativarAssinatura(id, authentication.getName());
+            redirectAttributes.addFlashAttribute("msgAssinaturaDesativada", true);
+        } catch (IllegalArgumentException ex) {
+            redirectAttributes.addFlashAttribute("msgAssinaturaErro", ex.getMessage());
+        }
+        return "redirect:/cliente/painel?aba=assinaturas";
+    }
+
     @GetMapping("/cadastro")
     public String cadastro(Model model) {
         model.addAttribute("cadastroClienteRequest", new CadastroClienteRequest());
@@ -160,13 +165,10 @@ public class ClienteController {
                 : new PainelEnderecoDto(cliente.getEndereco());
         model.addAttribute("enderecoForm", enderecoForm);
 
-        List<PainelAssinaturaDto> assinaturas = new ArrayList<>(
-                servicoAssinatura.listarPorCliente(cliente.getId()).stream()
-                        .filter(p -> Boolean.TRUE.equals(p.getAtivo()))
-                        .map(ClienteController::painelAssinaturaDtoDe)
-                        .collect(Collectors.toList())
-        );
-        assinaturas.addAll(ASSINATURAS_EXEMPLO);
+        List<PainelAssinaturaDto> assinaturas = servicoAssinatura.listarPorCliente(cliente.getId()).stream()
+                .filter(p -> Boolean.TRUE.equals(p.getAtivo()))
+                .map(ClienteController::painelAssinaturaDtoDe)
+                .collect(Collectors.toList());
         model.addAttribute("assinaturas", assinaturas);
     }
 
@@ -178,7 +180,7 @@ public class ClienteController {
                 ? pedido.getProduto().getDescricao()
                 : "Assinatura Koch Charcutaria.";
         return new PainelAssinaturaDto(
-                pedido.getId().intValue(),
+                pedido.getId(),
                 pedido.getNomeAssinatura(),
                 imagem,
                 descricao,

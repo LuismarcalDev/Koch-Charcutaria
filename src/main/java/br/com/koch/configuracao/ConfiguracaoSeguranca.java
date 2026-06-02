@@ -36,6 +36,7 @@ public class ConfiguracaoSeguranca {
         http
                 .securityMatcher("/cliente/**")
                 .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers("/cliente/css/**", "/cliente/img/**", "/cliente/js/**").permitAll()
                         .requestMatchers("/cliente/login", "/cliente/cadastro").permitAll()
                         .requestMatchers("/cliente/painel", "/cliente/painel/**").authenticated()
                         .anyRequest().authenticated()

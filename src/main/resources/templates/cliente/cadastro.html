@@ -4,12 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/site-layout.css}">
     <link rel="stylesheet" th:href="@{/cliente/css/cadastro.css}">
     <link rel="stylesheet" th:href="@{/cliente/css/cliente-mensagens.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <title>Cadastro - Koch Charcutaria</title>
 </head>
-<body>
+<body class="site-body cliente-auth-page">
 
 <div class="cliente-toast-stack" aria-live="polite">
     <div th:if="${erroCadastro}" class="cliente-toast cliente-toast--erro" role="alert">
@@ -23,7 +24,7 @@
     </div>
 </div>
 
-<div th:replace="~{fragments/cliente-topbar :: topbar}"></div>
+<div th:replace="~{fragments/site-header :: header}"></div>
 
 <main>
     <div class="login">
@@ -63,6 +64,8 @@
     </div>
 </main>
 
-<div th:replace="~{fragments/cliente-footer :: footer}"></div>
+<div th:replace="~{fragments/site-footer :: footer}"></div>
+
+<script th:src="@{/js/site-nav.js}" defer></script>
 </body>
 </html>

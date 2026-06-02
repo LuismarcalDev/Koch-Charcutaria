@@ -4,12 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/site-layout.css}">
     <link rel="stylesheet" th:href="@{/cliente/css/painel.css}">
     <link rel="stylesheet" th:href="@{/cliente/css/cliente-mensagens.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <title>Painel do Usuário</title>
 </head>
-<body>
+<body class="site-body cliente-painel-page"
+      th:data-desativar-url-template="@{/cliente/painel/assinaturas/0/desativar}">
 
 <div class="cliente-toast-stack" aria-live="polite">
     <div th:if="${msgDadosSalvos}" class="cliente-toast cliente-toast--ok cliente-toast--timed" role="status">
@@ -28,75 +30,55 @@
         <span class="cliente-toast__icon" aria-hidden="true"><i class="fa-solid fa-circle-xmark"></i></span>
         <span class="cliente-toast__text" th:text="${msgEnderecoErro}">Erro</span>
     </div>
+    <div th:if="${msgAssinaturaNova}" class="cliente-toast cliente-toast--ok cliente-toast--timed" role="status">
+        <span class="cliente-toast__icon" aria-hidden="true"><i class="fa-solid fa-circle-check"></i></span>
+        <span class="cliente-toast__text">Assinatura realizada com sucesso!</span>
+    </div>
+    <div th:if="${msgAssinaturaDesativada}" class="cliente-toast cliente-toast--ok cliente-toast--timed" role="status">
+        <span class="cliente-toast__icon" aria-hidden="true"><i class="fa-solid fa-circle-check"></i></span>
+        <span class="cliente-toast__text">Assinatura desativada com sucesso.</span>
+    </div>
+    <div th:if="${msgAssinaturaErro}" class="cliente-toast cliente-toast--erro" role="alert">
+        <span class="cliente-toast__icon" aria-hidden="true"><i class="fa-solid fa-circle-xmark"></i></span>
+        <span class="cliente-toast__text" th:text="${msgAssinaturaErro}">Erro</span>
+    </div>
 </div>
 
-<!-- POPUP -->
-<div class="popup-backdrop" id="popupBackdrop" aria-hidden="true"
-     th:if="${assinaturaSelecionada != null}">
+<div class="popup-backdrop" id="popupBackdrop" aria-hidden="true">
     <div class="popup-modal" role="dialog" aria-modal="true" aria-labelledby="popupTitle" tabindex="-1">
         <button type="button" class="popup-close" id="popupClose" aria-label="Fechar detalhes da assinatura">
             <i class="fa-solid fa-xmark"></i>
         </button>
         <div class="popup-hero">
             <div class="popup-hero__img-wrap">
-                <img th:src="${#strings.startsWith(assinaturaSelecionada.foto, '/')} ? ${assinaturaSelecionada.foto} : @{/cliente/img/{f}(f=${assinaturaSelecionada.foto})}"
-                     th:alt="${assinaturaSelecionada.nome}">
+                <img th:src="@{/cliente/img/foto.png}" alt="" id="popupImg">
             </div>
-            <div class="popup-hero__badge">
+            <div class="popup-hero__badge" id="popupBadge">
                 <i class="fa-solid fa-circle-check"></i> Assinatura ativa
             </div>
         </div>
         <div class="popup-body">
-            <h2 id="popupTitle" class="popup-title" th:text="${assinaturaSelecionada.nome}">Cesta Suínos</h2>
-            <p class="popup-desc" th:text="${assinaturaSelecionada.descricao}">
-                Receba produtos selecionados todo mês com a qualidade Koch.
-            </p>
+            <h2 id="popupTitle" class="popup-title">Assinatura</h2>
+            <p class="popup-desc" id="popupDesc"></p>
             <div class="popup-price">
-                    <span class="popup-price__value"
-                          th:text="'R$\u00a0' + ${#numbers.formatDecimal(assinaturaSelecionada.preco, 1, 2)}">
-                        R$&nbsp;29,00
-                    </span>
+                <span class="popup-price__value" id="popupPreco">R$&nbsp;0,00</span>
                 <span class="popup-price__period">/ mês</span>
             </div>
+            <form id="formDesativarAssinatura" method="post" class="popup-actions-form">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+            </form>
             <div class="popup-actions">
                 <button type="button" class="popup-btn popup-btn--ghost" id="popupFecharInferior">Fechar</button>
-                <button type="button" class="popup-btn popup-btn--danger" disabled
-                        title="Entre em contato pelo WhatsApp para alterar sua assinatura">Desativar assinatura</button>
+                <button type="submit" form="formDesativarAssinatura" id="btnDesativarAssinatura"
+                        class="popup-btn popup-btn--danger" hidden>
+                    Desativar assinatura
+                </button>
             </div>
         </div>
     </div>
 </div>
 
-<!-- POPUP estático (quando não há assinatura selecionada via modelo, mantém estrutura para JS) -->
-<div class="popup-backdrop" id="popupBackdrop" aria-hidden="true"
-     th:unless="${assinaturaSelecionada != null}">
-    <div class="popup-modal" role="dialog" aria-modal="true" aria-labelledby="popupTitle" tabindex="-1">
-        <button type="button" class="popup-close" id="popupClose" aria-label="Fechar detalhes da assinatura">
-            <i class="fa-solid fa-xmark"></i>
-        </button>
-        <div class="popup-hero">
-            <div class="popup-hero__img-wrap">
-                <img th:src="@{/cliente/img/foto.png}" alt="Imagem da cesta assinada" id="popupImg">
-
-            </div>
-            <div class="popup-hero__badge"><i class="fa-solid fa-circle-check"></i> Assinatura ativa</div>
-        </div>
-        <div class="popup-body">
-            <h2 id="popupTitle" class="popup-title">Cesta Suínos</h2>
-            <p class="popup-desc">Receba produtos selecionados todo mês com a qualidade Koch.</p>
-            <div class="popup-price">
-                <span class="popup-price__value">R$&nbsp;29,00</span>
-                <span class="popup-price__period">/ mês</span>
-            </div>
-            <div class="popup-actions">
-                <button type="button" class="popup-btn popup-btn--ghost" id="popupFecharInferior">Fechar</button>
-                <button type="button" class="popup-btn popup-btn--danger" disabled title="Exemplo — indisponível">Desativar assinatura</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div th:replace="~{fragments/cliente-topbar :: topbar}"></div>
+<div th:replace="~{fragments/site-header :: header}"></div>
 
 <main>
     <div class="painel">
@@ -132,7 +114,6 @@
         <div class="painel-infos">
             <div class="painel-infos__views">
 
-                <!-- ABA: Dados Pessoais -->
                 <div class="painel-secao painel-secao--dados is-active"
                      id="secaoDados" role="tabpanel" aria-labelledby="tabDados" aria-hidden="false">
                     <h2>Dados pessoais</h2>
@@ -168,25 +149,28 @@
                     </form>
                 </div>
 
-                <!-- ABA: Assinaturas -->
                 <div class="painel-secao painel-secao--assinaturas"
                      id="secaoAssinaturas" role="tabpanel" aria-labelledby="tabAssinaturas" aria-hidden="true">
                     <h2>Assinaturas</h2>
                     <p class="painel-secao__subtitle">Confira e gerencie suas cestas.</p>
-                    <div class="assinaturas">
+                    <p th:if="${#lists.isEmpty(assinaturas)}" class="painel-enderecos__vazio">
+                        Você ainda não possui assinaturas ativas.
+                    </p>
+                    <div class="assinaturas" th:if="${!#lists.isEmpty(assinaturas)}">
                         <div class="grupo-assinaturas">
 
-                            <!-- Lista de assinaturas do usuário -->
                             <div th:each="assinatura : ${assinaturas}"
                                  class="assinatura"
                                  th:id="'assinaturaCard-' + ${assinatura.id}"
                                  role="button" tabindex="0"
                                  aria-haspopup="dialog"
                                  aria-controls="popupBackdrop"
-                                 th:attr="aria-label='Ver detalhes de ' + ${assinatura.nome}">
+                                 th:attr="aria-label='Ver detalhes de ' + ${assinatura.nome},
+                                          data-id=${assinatura.id},
+                                          data-descricao=${assinatura.descricao},
+                                          data-preco=${#numbers.formatDecimal(assinatura.preco, 1, 2)}">
                                 <div class="assinatura__media">
                                     <img th:src="${#strings.startsWith(assinatura.foto, '/')} ? ${assinatura.foto} : @{/cliente/img/{f}(f=${assinatura.foto})}"
-
                                          th:alt="${assinatura.nome}">
                                 </div>
                                 <div class="assinatura__info">
@@ -210,7 +194,6 @@
                     </a>
                 </div>
 
-                <!-- ABA: Endereços -->
                 <div class="painel-secao painel-secao--enderecos"
                      id="secaoEnderecos" role="tabpanel" aria-labelledby="tabEnderecos" aria-hidden="true">
                     <h2>Endereços</h2>
@@ -244,8 +227,9 @@
     </div>
 </main>
 
-<div th:replace="~{fragments/cliente-footer :: footer}"></div>
+<div th:replace="~{fragments/site-footer :: footer}"></div>
 
+<script th:src="@{/js/site-nav.js}" defer></script>
 <script th:src="@{/cliente/js/painel.js}"></script>
 </body>
 </html>

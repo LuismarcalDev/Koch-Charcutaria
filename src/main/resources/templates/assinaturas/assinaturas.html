@@ -39,7 +39,13 @@
                     <div class="foto-card-preco"
                          th:text="'R$ ' + ${#numbers.formatDecimal(cesta.preco, 1, 2)}">R$ 0,00</div>
 
-                    <form th:action="@{/assinaturas/{id}/assinar(id=${cesta.id})}" method="post" class="form-assinar">
+                    <a th:if="${assinaturasAtivasPorProduto != null and assinaturasAtivasPorProduto.containsKey(cesta.id)}"
+                       th:href="@{/cliente/painel(aba='assinaturas', assinatura=${assinaturasAtivasPorProduto.get(cesta.id)})}"
+                       class="foto-card-btn foto-card-btn--assinado">
+                        Ver minha assinatura
+                    </a>
+                    <form th:unless="${assinaturasAtivasPorProduto != null and assinaturasAtivasPorProduto.containsKey(cesta.id)}"
+                          th:action="@{/assinaturas/{id}/assinar(id=${cesta.id})}" method="post" class="form-assinar">
                         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                         <button type="submit" class="foto-card-btn">Assinar 🍽️</button>
                     </form>

@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 public class PainelAssinaturaDto {
 
-    private final int id;
+    private final long id;
     private final String nome;
     private final String foto;
     private final String descricao;
@@ -13,7 +13,7 @@ public class PainelAssinaturaDto {
     private final String fornecedor;
 
     public PainelAssinaturaDto(
-            int id,
+            long id,
             String nome,
             String foto,
             String descricao,
@@ -30,7 +30,7 @@ public class PainelAssinaturaDto {
         this.fornecedor = fornecedor;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
