@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="PT-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Koch Charcutaria - Catálogo</title>
+    <link rel="icon" th:href="@{/imagens/logo.png}" />
+    <link rel="stylesheet" th:href="@{/css/catalogo.css}">
+</head>
+
+<body id="navI">
+<script src="https://unpkg.com/scrollreveal"></script>
+
+<nav class="navbar">
+    <div class="logo">
+        <a th:href="@{/}"><img th:src="@{/imagens/kochlogo.png}" alt="Logo"></a>
+    </div>
+
+    <ul class="nav-links">
+        <li><a th:href="@{/}" title="Ir para a página inicial">Inicio</a></li>
+        <li><a href="#historia" title="Conheça a história da Koch">História</a></li>
+        <li><a href="#catalogo-produtos" title="Veja nossos produtos">Catálogo</a></li>
+        <li><a th:href="@{/assinaturas}" title="Conheça nossos planos de assinatura">Assinaturas</a></li>
+    </ul>
+
+    <a th:href="@{/contato}" class="contact-button">
+        <img th:src="@{/imagens/telefone.png}" class="icon" alt=""> Contato
+    </a>
+
+    <div class="menu-toggle">☰</div>
+</nav>
+
+<!-- Seção Sobre -->
+<section class="sobre" id="historia">
+    <div class="texto">
+        <h2 th:text="${sobreTitulo}">Como Surgiu a Koch Charcutaria</h2>
+        <p th:each="paragrafo : ${sobreTextos}" th:text="${paragrafo}"></p>
+    </div>
+
+    <div class="imagens">
+        <img th:src="@{/imagens/img1.jpeg}" alt="Pancetta">
+        <img th:src="@{/imagens/img2.jpeg}" alt="Panceta de Rolo">
+        <img th:src="@{/imagens/img3.jpeg}" alt="Copa Defumada">
+    </div>
+</section>
+
+<!-- Banner -->
+<div class="alinha" id="catalogo-produtos">
+    <div class="comercialimg">
+        <div class="texto-sobre-imagem" th:text="${bannerTexto}">Conheça algumas de nossas delícias</div>
+    </div>
+</div>
+
+<!-- Lista de Produtos -->
+<div id="produtos-container">
+    <div class="produto" th:each="produto : ${produtos}">
+
+        <img class="produto-foto"
+             th:src="@{'/imagens/' + ${produto.imagem}}"
+             th:alt="${produto.nome}">
+
+        <div class="bloco-selos">
+            <img th:src="@{/imagens/selo1.png}" alt="Selo 1">
+            <img th:src="@{/imagens/selo2.png}" alt="Selo 2">
+            <img th:src="@{/imagens/selo3.png}" alt="Selo 3">
+            <img th:src="@{/imagens/selo4.png}" alt="Selo 4">
+            <img th:src="@{/imagens/selo5.png}" alt="Selo 5">
+        </div>
+
+        <div class="produto-info">
+            <div class="produto-titulo" th:text="${produto.nome}">Nome do Produto</div>
+            <div class="descricao">
+                <p th:text="${produto.descricao}">Descrição do produto.</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="rodape">
+    <div class="rodape-marca">
+        <span class="linha-deco"></span>
+        <span class="marca">KOCH</span>
+        <span class="linha-deco"></span>
+    </div>
+    <p class="subtitulo">Embutidos e suínos</p>
+    <p class="copy">© <span th:text="${anoAtual}">2026</span> Grupo 5. Todos os direitos reservados.</p>
+</footer>
+
+<script th:src="@{/js/catalogo.js}"></script>
+</body>
+</html>

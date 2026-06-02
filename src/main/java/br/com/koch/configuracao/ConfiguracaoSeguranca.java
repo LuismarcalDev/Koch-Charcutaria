@@ -19,7 +19,6 @@ public class ConfiguracaoSeguranca {
         this.servicoDetalhesCliente = servicoDetalhesCliente;
     }
 
-    // Liga o seu ServicoDetalhesCliente ao Spring Security
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
@@ -32,11 +31,22 @@ public class ConfiguracaoSeguranca {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/css/**", "/js/**", "/images/**", "/cliente/css/**", "/cliente/img/**", "/cliente/js/**", "/webjars/**", "/favicon.ico").permitAll()
-                        .requestMatchers("/", "/suinos", "/carnes", "/historia", "/sobre", "/delivery", "/contato", "/carrinho").permitAll()
+                        .requestMatchers(
+                                "/css/**", "/js/**",
+                                "/images/**", "/imagens/**", "/Imagens/**", "/img/**",
+                                "/cliente/css/**", "/cliente/img/**", "/cliente/js/**",
+                                "/webjars/**", "/favicon.ico"
+                        ).permitAll()
+                        .requestMatchers(
+                                "/",
+                                "/suinos", "/carnes", "/historia", "/sobre", "/delivery", "/carrinho",
+                                "/catalogo", "/catalogo/**",
+                                "/assinaturas", "/assinaturas/**",
+                                "/nossa-historia", "/contato"
+                        ).permitAll()
                         .requestMatchers("/login", "/cadastro").permitAll()
                         .requestMatchers("/cliente/login", "/cliente/cadastro").permitAll()
-                        .requestMatchers("/painel/**").hasRole("ADMINISTRADOR")
+                        .requestMatchers("/painel", "/painel/**").hasRole("ADMINISTRADOR")
                         .requestMatchers("/cliente/painel", "/cliente/painel/**").authenticated()
                         .anyRequest().permitAll()
                 )
