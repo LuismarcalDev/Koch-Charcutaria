@@ -1,221 +1,432 @@
 <!DOCTYPE html>
+
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org"
+
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Dashboard - Koch</title>
+
     <link rel="stylesheet" th:href="@{/css/site-layout.css}">
+
     <link rel="stylesheet" th:href="@{/css/admin-dashboard.css}">
+
 </head>
-<body class="site-body admin-dashboard-body">
+
+<body class="site-body admin-dashboard-body"
+
+      th:attr="data-abrir-modal=${abrirModalProduto != null}">
+
+
 
 <div th:replace="~{fragments/site-header :: header}"></div>
 
-<nav class="navbar dashboard-inner-nav">
-    <span class="navbar-logo">KOCH</span>
-    <div class="navbar-links">
-        <a href="#" onclick="switchTab('clientes', null); return false;">
-            <img th:src="@{/imagens/ic_cadastrados.svg}" alt="cadastrados" class="navbar-icon"/>
-            Clientes Cadastrados
-        </a>
-    </div>
-</nav>
 
-<div class="container">
 
-    <aside class="sidebar">
+<div class="dashboard-layout">
+
+
+
+    <aside class="sidebar" aria-label="Menu do painel">
+
         <nav class="sidebar-nav">
-            <a href="#" class="sidebar-item active" onclick="switchTab('inicio', this); return false;">
-                <img th:src="@{/imagens/ic_home.svg}" alt="inicio" class="sidebar-icon"/>
+
+            <a href="#" class="sidebar-item active" data-tab="inicio"
+
+               onclick="switchTab('inicio', this); return false;">
+
+                <img th:src="@{/imagens/ic_home.svg}" alt="" class="sidebar-icon"/>
+
                 <span>Início</span>
+
             </a>
-            <a href="#" class="sidebar-item" onclick="switchTab('agenda', this); return false;">
+
+            <a href="#" class="sidebar-item" data-tab="agenda"
+
+               onclick="switchTab('agenda', this); return false;">
+
                 <span>Agenda</span>
+
             </a>
-            <a href="#" class="sidebar-item" onclick="switchTab('criar', this); return false;">
-                <span>Criar Produtos</span>
+
+            <a href="#" class="sidebar-item" data-tab="criar"
+
+               onclick="switchTab('criar', this); return false;">
+
+                <span>Criar cestas</span>
+
             </a>
-            <a href="#" class="sidebar-item" onclick="switchTab('envios', this); return false;">
+
+            <a href="#" class="sidebar-item" data-tab="envios"
+
+               onclick="switchTab('envios', this); return false;">
+
                 <span>Envios</span>
+
             </a>
+
+            <a href="#" class="sidebar-item" data-tab="clientes"
+
+               onclick="switchTab('clientes', this); return false;">
+
+                <img th:src="@{/imagens/ic_cadastrados.svg}" alt="" class="sidebar-icon"/>
+
+                <span>Clientes</span>
+
+            </a>
+
         </nav>
+
         <form th:action="@{/logout}" method="post" class="sidebar-sair-form">
+
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+
             <button type="submit" class="sidebar-sair">
-                <img th:src="@{/imagens/ic_sair.svg}" alt="sair" class="sidebar-icon"/>
+
+                <img th:src="@{/imagens/ic_sair.svg}" alt="" class="sidebar-icon"/>
+
                 <span>Sair</span>
+
             </button>
+
         </form>
+
     </aside>
+
+
 
     <main class="main-content">
 
+
+
+        <div th:if="${msgProdutoOk}" class="dashboard-alerta dashboard-alerta--ok" th:text="${msgProdutoOk}"></div>
+
+        <div th:if="${msgProdutoErro}" class="dashboard-alerta dashboard-alerta--erro" th:text="${msgProdutoErro}"></div>
+
+
+
         <div class="main-header">
+
             <div class="saudacao">
+
                 <p class="data" id="data"></p>
+
                 <h1>Olá Administrador!</h1>
+
             </div>
+
             <div class="proximos-envios">
+
                 <div class="proximos-envios-header">
-                    <img th:src="@{/imagens/ic_alarme.svg}" alt="alarme" class="envios-icon"/>
+
+                    <img th:src="@{/imagens/ic_alarme.svg}" alt="" class="envios-icon"/>
+
                     <span>Próximos Envios (Pendentes)</span>
+
                 </div>
+
                 <div th:each="pedido : ${pedidosPendentes}" class="proximos-envios-body">
+
                     <p th:text="${pedido.cliente.nome + ' - ' + pedido.produto.nome}"></p>
+
                 </div>
-                <p th:if="${#lists.isEmpty(pedidosPendentes)}"
-                   style="color:rgba(255,255,255,0.6); font-size:13px;">
+
+                <p th:if="${#lists.isEmpty(pedidosPendentes)}" class="dashboard-vazio">
+
                     Nenhum envio pendente.
+
                 </p>
+
             </div>
+
         </div>
+
+
 
         <div class="paineis">
+
             <div class="painel-unificado">
 
-                <!-- INÍCIO -->
+
+
                 <div class="tab-content active" id="tab-inicio">
+
                     <h2 class="tab-titulo">Início</h2>
+
                     <div th:each="produto : ${produtos}" class="produto-item">
+
                         <span th:text="${produto.nome}"></span>
-                        <span th:text="${produto.descricao}"></span>
+
+                        <span class="produto-descricao" th:text="${produto.descricao}"></span>
+
                     </div>
-                    <p th:if="${#lists.isEmpty(produtos)}"
-                       style="color:rgba(255,255,255,0.6); font-size:13px;">
-                        Nenhum produto cadastrado.
+
+                    <p th:if="${#lists.isEmpty(produtos)}" class="dashboard-vazio">
+
+                        Nenhuma cesta cadastrada.
+
                     </p>
+
                 </div>
 
-                <!-- AGENDA -->
+
+
                 <div class="tab-content" id="tab-agenda">
+
                     <h2 class="tab-titulo">Agenda do Mês</h2>
+
                     <div th:each="pedido : ${pedidosDoMes}" class="envio-item">
+
                         <div class="envio-info">
+
                             <p th:text="${pedido.cliente.nome}"></p>
+
                             <p th:text="${pedido.produto.nome}"></p>
+
                         </div>
-                        <span th:if="${!pedido.ativo}"
-                              style="color:#4CAF50; font-size:18px;">✓</span>
-                        <span th:if="${pedido.ativo}"
-                              style="color:rgba(255,255,255,0.5); font-size:13px;">Pendente</span>
+
+                        <span th:if="${!pedido.ativo}" class="envio-status envio-status--ok">✓</span>
+
+                        <span th:if="${pedido.ativo}" class="envio-status envio-status--pendente">Pendente</span>
+
                     </div>
-                    <p th:if="${#lists.isEmpty(pedidosDoMes)}"
-                       style="color:rgba(255,255,255,0.6); font-size:13px;">
+
+                    <p th:if="${#lists.isEmpty(pedidosDoMes)}" class="dashboard-vazio">
+
                         Nenhum envio agendado para este mês.
+
                     </p>
+
                 </div>
 
-                <!-- CRIAR PRODUTOS -->
+
+
                 <div class="tab-content" id="tab-criar">
+
                     <div class="painel-header">
-                        <span>Produtos</span>
-                        <button onclick="abrirModal()" class="btn-novo">+ Novo</button>
+
+                        <span>Cestas cadastradas</span>
+
+                        <button type="button" onclick="abrirModal()" class="btn-novo">+ Nova cesta</button>
+
                     </div>
-                    <div th:each="produto : ${produtos}" class="produto-item">
-                        <span th:text="${produto.nome}"></span>
-                        <span th:text="${produto.descricao}"></span>
+
+                    <div th:each="produto : ${produtos}" class="produto-item produto-item--lista">
+
+                        <div class="produto-item-texto">
+
+                            <strong th:text="${produto.nome}"></strong>
+
+                            <span class="produto-descricao" th:text="${produto.descricao}"></span>
+
+                        </div>
+
                         <div class="produto-acoes">
-                            <button class="btn-editar"
+
+                            <button type="button" class="btn-editar"
+
                                     th:data-id="${produto.id}"
+
                                     th:data-nome="${produto.nome}"
+
                                     th:data-descricao="${produto.descricao}"
+
                                     th:data-imagem="${produto.imagemUrl}"
+
                                     th:data-preco="${produto.preco}"
+
                                     onclick="editarProduto(this)">Editar</button>
-                            <a th:href="@{/admin/produtos/deletar/{id}(id=${produto.id})}">Excluir</a>
+
+                            <form th:action="@{/admin/produtos/deletar/{id}(id=${produto.id})}" method="post"
+
+                                  class="form-excluir-produto"
+
+                                  onsubmit="return confirm('Excluir esta cesta? As assinaturas vinculadas também serão removidas.');">
+
+                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+
+                                <button type="submit" class="btn-excluir">Excluir</button>
+
+                            </form>
+
                         </div>
+
                     </div>
-                    <p th:if="${#lists.isEmpty(produtos)}"
-                       style="color:rgba(255,255,255,0.6); font-size:13px;">
-                        Nenhum produto cadastrado.
+
+                    <p th:if="${#lists.isEmpty(produtos)}" class="dashboard-vazio">
+
+                        Nenhuma cesta cadastrada. Clique em &quot;+ Nova cesta&quot; para começar.
+
                     </p>
+
                 </div>
 
-                <!-- ENVIOS -->
+
+
                 <div class="tab-content" id="tab-envios">
+
                     <h2 class="tab-titulo">Envios</h2>
+
                     <div th:each="pedido : ${pedidos}" class="envio-item">
+
                         <div class="envio-info">
+
                             <p th:text="${pedido.cliente.nome}"></p>
+
                             <p th:text="${pedido.produto.nome}"></p>
+
                         </div>
+
                         <form th:action="@{/admin/pedidos/check/{id}(id=${pedido.id})}" method="post">
+
                             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+
                             <label>
+
                                 <input type="checkbox" onchange="this.form.submit()"
+
                                        th:checked="${!pedido.ativo}">
+
                                 <span class="visually-hidden">Marcar como enviado</span>
+
                             </label>
+
                         </form>
+
                     </div>
-                    <p th:if="${#lists.isEmpty(pedidos)}"
-                       style="color:rgba(255,255,255,0.6); font-size:13px;">
+
+                    <p th:if="${#lists.isEmpty(pedidos)}" class="dashboard-vazio">
+
                         Nenhum pedido encontrado.
+
                     </p>
+
                 </div>
 
-                <!-- CLIENTES -->
+
+
                 <div class="tab-content" id="tab-clientes">
+
                     <h2 class="tab-titulo">Clientes Cadastrados</h2>
+
                     <div th:each="cliente : ${clientes}" class="envio-item">
+
                         <div class="envio-info">
+
                             <p th:text="${cliente.nome}"></p>
+
                             <p th:text="${cliente.telefone}"></p>
+
                             <p th:text="${cliente.endereco}"></p>
+
                         </div>
+
                     </div>
-                    <p th:if="${#lists.isEmpty(clientes)}"
-                       style="color:rgba(255,255,255,0.6); font-size:13px;">
+
+                    <p th:if="${#lists.isEmpty(clientes)}" class="dashboard-vazio">
+
                         Nenhum cliente cadastrado.
+
                     </p>
+
                 </div>
+
+
 
             </div>
+
         </div>
+
+
 
     </main>
 
-    <!-- MODAL PRODUTO -->
-    <div class="modal-overlay" id="modal-produto" style="display:none;">
-        <div class="modal">
-            <div class="modal-header">
-                <h2 id="modal-titulo">Novo Produto</h2>
-                <button onclick="fecharModal()" class="modal-fechar">✕</button>
-            </div>
-            <form th:action="@{/admin/produtos/salvar}" method="post" enctype="multipart/form-data">
-                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-                <input type="hidden" id="produto-id" name="id"/>
-                <div class="modal-campo">
-                    <label>Nome da cesta</label>
-                    <input type="text" name="nome" id="produto-nome" required/>
-                </div>
-                <div class="modal-campo">
-                    <label>Descrição</label>
-                    <textarea name="descricao" id="produto-descricao"></textarea>
-                </div>
-                <div class="modal-campo">
-                    <label>Imagem da cesta</label>
-                    <input type="file" name="imagemArquivo" id="produto-imagemArquivo" accept="image/*"/>
-                    <p id="produto-imagem-atual" class="modal-imagem-atual" style="display:none; margin-top:8px; font-size:12px; color:#ccc;"></p>
-                </div>
-                <div class="modal-campo">
-                    <label>Preço</label>
-                    <input type="number" step="0.01" name="preco" id="produto-preco" required/>
-                </div>
-                <div class="modal-acoes">
-                    <button type="button" onclick="fecharModal()">Cancelar</button>
-                    <button type="submit">Salvar</button>
-                </div>
-            </form>
+</div>
+
+
+
+<div class="modal-overlay" id="modal-produto" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="modal-titulo">
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <h2 id="modal-titulo">Nova cesta</h2>
+
+            <button type="button" onclick="fecharModal()" class="modal-fechar" aria-label="Fechar">✕</button>
+
         </div>
+
+        <form id="form-produto" th:action="@{/admin/produtos/salvar}" method="post" enctype="multipart/form-data">
+
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+
+            <input type="hidden" id="produto-id"/>
+
+            <div class="modal-campo">
+
+                <label for="produto-nome">Nome da cesta</label>
+
+                <input type="text" name="nome" id="produto-nome" required/>
+
+            </div>
+
+            <div class="modal-campo">
+
+                <label for="produto-descricao">Descrição</label>
+
+                <textarea name="descricao" id="produto-descricao" rows="4"></textarea>
+
+            </div>
+
+            <div class="modal-campo">
+
+                <label for="produto-imagemArquivo">Imagem da cesta</label>
+
+                <input type="file" name="imagemArquivo" id="produto-imagemArquivo" accept="image/*"/>
+
+                <p id="produto-imagem-atual" class="modal-imagem-atual" style="display:none;"></p>
+
+            </div>
+
+            <div class="modal-campo">
+
+                <label for="produto-preco">Preço (R$)</label>
+
+                <input type="number" step="0.01" min="0" name="preco" id="produto-preco" required/>
+
+            </div>
+
+            <div class="modal-acoes">
+
+                <button type="button" onclick="fecharModal()">Cancelar</button>
+
+                <button type="submit">Salvar</button>
+
+            </div>
+
+        </form>
+
     </div>
 
 </div>
 
+
+
 <div th:replace="~{fragments/site-footer :: footer}"></div>
 
+
+
 <script th:src="@{/js/site-nav.js}" defer></script>
+
 <script th:src="@{/js/dashboard.js}"></script>
+
 </body>
+
 </html>
+

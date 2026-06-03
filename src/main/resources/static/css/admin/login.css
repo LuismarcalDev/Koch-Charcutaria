@@ -164,25 +164,46 @@ body {
     height: 54px;
 }
 
-@media (max-width: 768px) {
-    .cabecalho {
-        flex-direction: column;
-        gap: 10px;
-        height: auto;
-        padding: 16px;
-    }
+.auth-links {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 14px;
+}
 
-    .cabecalho-menu {
-        gap: 20px;
-        flex-wrap: wrap;
-        justify-content: center;
+.auth-links a {
+    color: #980914;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.auth-links a:hover {
+    text-decoration: underline;
+}
+
+body.site-body .conteudo.page-main {
+    flex: 1;
+    width: 100%;
+    padding: clamp(20px, 4vw, 40px) clamp(16px, 4vw, 20px);
+}
+
+@media (max-width: 768px) {
+    .conteudo {
+        padding: 24px 16px;
     }
 
     .caixa-login {
+        width: 100%;
+        max-width: 100%;
         padding: 32px 24px;
     }
 
     .caixa-login h1 {
         font-size: 28px;
+    }
+}
+
+@media (max-width: 480px) {
+    .caixa-login h1 {
+        font-size: 24px;
     }
 }

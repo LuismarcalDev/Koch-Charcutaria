@@ -15,4 +15,6 @@ public interface PedidoRepository extends JpaRepository<Pedido, Long> {
     boolean existsByCliente_IdAndProduto_IdAndAtivoTrue(Integer clienteId, Long produtoId);
 
     Optional<Pedido> findFirstByCliente_IdAndProduto_IdAndAtivoTrue(Integer clienteId, Long produtoId);
+
+    void deleteByProduto_Id(Long produtoId);
 }

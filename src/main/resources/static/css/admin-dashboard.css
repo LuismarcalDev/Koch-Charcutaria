@@ -57,11 +57,15 @@ body {
 }
 
 /* LAYOUT */
-.container {
+.dashboard-layout {
     display: flex;
-    height: calc(100vh - 55px);
-    padding: 20px 20px 20px 0;
-    gap: 20px;
+    flex: 1;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 16px 16px 24px;
+    gap: 16px;
+    min-height: 0;
 }
 
 
@@ -310,6 +314,12 @@ input[type="checkbox"] {
 .produto-acoes {
     display: flex;
     gap: 10px;
+    align-items: center;
+}
+
+.form-excluir-produto {
+    margin: 0;
+    padding: 0;
 }
 
 .produto-acoes a {
@@ -334,6 +344,39 @@ input[type="checkbox"] {
 
 .btn-editar:hover {
     color: white;
+}
+
+.btn-excluir {
+    background: none;
+    border: none;
+    color: rgba(255, 100, 100, 0.85);
+    font-size: 12px;
+    cursor: pointer;
+    transition: 0.2s;
+    padding: 0;
+}
+
+.btn-excluir:hover {
+    color: #ff8a8a;
+}
+
+.dashboard-alerta {
+    margin: 0 0 16px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.dashboard-alerta--ok {
+    background: rgba(76, 175, 80, 0.2);
+    border: 1px solid rgba(76, 175, 80, 0.5);
+    color: #c8e6c9;
+}
+
+.dashboard-alerta--erro {
+    background: rgba(244, 67, 54, 0.15);
+    border: 1px solid rgba(244, 67, 54, 0.45);
+    color: #ffcdd2;
 }
 
 /* MODAL */
@@ -449,4 +492,200 @@ input[type="checkbox"] {
 
 .modal-acoes button:hover {
     opacity: 0.85;
+}
+
+.dashboard-vazio {
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 13px;
+    margin-top: 8px;
+}
+
+.produto-descricao {
+    font-weight: 400;
+    font-size: 13px;
+    opacity: 0.85;
+}
+
+.produto-item--lista {
+    flex-wrap: wrap;
+    gap: 8px 12px;
+    align-items: flex-start;
+}
+
+.produto-item-texto {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+    min-width: 0;
+}
+
+.produto-item-texto strong {
+    color: white;
+    font-size: 15px;
+}
+
+.envio-status--ok {
+    color: #4caf50;
+    font-size: 18px;
+}
+
+.envio-status--pendente {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 13px;
+}
+
+.modal-imagem-atual {
+    margin-top: 8px;
+    font-size: 12px;
+    color: #ccc;
+}
+
+body.modal-aberto {
+    overflow: hidden;
+}
+
+.btn-novo {
+    background: transparent;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+/* ── Responsivo ── */
+@media (max-width: 1024px) {
+    .main-header {
+        flex-direction: column;
+    }
+
+    .saudacao h1 {
+        font-size: 32px;
+    }
+
+    .proximos-envios {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard-layout {
+        flex-direction: column;
+        padding: 12px;
+    }
+
+    .sidebar {
+        width: 100%;
+        margin: 0;
+        flex-direction: row;
+        flex-wrap: wrap;
+        padding: 12px;
+        gap: 4px;
+    }
+
+    .sidebar-nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+        flex: 1;
+        gap: 4px;
+    }
+
+    .sidebar-item {
+        padding: 10px 12px;
+        font-size: 13px;
+        border-left: none;
+        border-radius: 8px;
+    }
+
+    .sidebar-item.active,
+    .sidebar-item:hover {
+        border-left: none;
+    }
+
+    .sidebar-sair-form {
+        width: auto;
+    }
+
+    .sidebar-sair-form .sidebar-sair {
+        padding: 10px 12px;
+        justify-content: center;
+    }
+
+    .main-content {
+        padding: 16px 0 0;
+    }
+
+    .saudacao h1 {
+        font-size: 26px;
+    }
+
+    .painel-unificado {
+        min-height: 280px;
+    }
+
+    .produto-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .produto-acoes {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    .modal {
+        margin: 12px;
+        padding: 20px;
+        max-height: calc(100vh - 24px);
+        overflow-y: auto;
+    }
+
+    .modal-overlay {
+        align-items: flex-start;
+        padding-top: 12px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .dashboard-layout {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .saudacao h1 {
+        font-size: 22px;
+    }
+
+    .main-content {
+        gap: 16px;
+    }
+
+    .proximos-envios,
+    .painel-unificado {
+        padding: 14px;
+    }
+
+    .tab-titulo,
+    .painel-header {
+        font-size: 16px;
+    }
+
+    .painel-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .btn-novo {
+        width: 100%;
+        text-align: center;
+    }
+
+    .modal-acoes {
+        flex-direction: column-reverse;
+    }
+
+    .modal-acoes button {
+        width: 100%;
+    }
 }

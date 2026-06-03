@@ -2,8 +2,9 @@ package br.com.koch.controlador.admin;
 
 import br.com.koch.modelo.admin.Produto;
 import br.com.koch.servico.admin.ProdutoService;
+import org.springframework.beans.propertyeditors.CustomNumberEditor;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -17,6 +18,11 @@ public class ProdutoController {
 
     public ProdutoController(ProdutoService produtoService) {
         this.produtoService = produtoService;
+    }
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        binder.registerCustomEditor(Long.class, new CustomNumberEditor(Long.class, true));
     }
 
     @GetMapping
@@ -43,18 +49,27 @@ public class ProdutoController {
             redirectAttributes.addFlashAttribute("msgProdutoOk", "Cesta salva com sucesso.");
         } catch (IllegalArgumentException | IOException ex) {
             redirectAttributes.addFlashAttribute("msgProdutoErro", ex.getMessage());
+            redirectAttributes.addFlashAttribute("abrirModalProduto", true);
         }
-        return "redirect:/admin/dashboard";
+        return "redirect:/admin/dashboard?tab=criar";
     }
 
     @GetMapping("/editar/{id}")
     public String editar(@PathVariable Long id) {
-        return "redirect:/admin/dashboard";
+        return "redirect:/admin/dashboard?tab=criar";
     }
 
-    @GetMapping("/deletar/{id}")
-    public String deletar(@PathVariable Long id) {
-        produtoService.deletar(id);
-        return "redirect:/admin/dashboard";
+    @PostMapping("/deletar/{id}")
+    public String deletar(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        try {
+            produtoService.deletar(id);
+            redirectAttributes.addFlashAttribute("msgProdutoOk", "Cesta excluída com sucesso.");
+        } catch (IllegalArgumentException ex) {
+            redirectAttributes.addFlashAttribute("msgProdutoErro", ex.getMessage());
+        } catch (Exception ex) {
+            redirectAttributes.addFlashAttribute("msgProdutoErro",
+                    "Não foi possível excluir a cesta. Verifique se ainda há vínculos no banco.");
+        }
+        return "redirect:/admin/dashboard?tab=criar";
     }
 }
