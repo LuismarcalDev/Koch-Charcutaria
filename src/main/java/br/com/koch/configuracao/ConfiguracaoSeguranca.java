@@ -82,7 +82,7 @@ public class ConfiguracaoSeguranca {
                                 "/nossa-historia", "/contato",
                                 "/suinos", "/carnes", "/historia", "/sobre", "/delivery", "/carrinho"
                         ).permitAll()
-                        .requestMatchers("/login").permitAll()
+                        .requestMatchers("/login", "/cadastro").permitAll()
                         .requestMatchers("/admin/**", "/painel", "/painel/**").hasRole("ADMINISTRADOR")
                         .anyRequest().permitAll()
                 )

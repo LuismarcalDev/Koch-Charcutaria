@@ -24,6 +24,10 @@
             Logout realizado com sucesso.
         </div>
 
+        <div class="mensagem sucesso" th:if="${param.cadastroSucesso}">
+            Administrador cadastrado com sucesso.
+        </div>
+
         <form th:action="@{/login}" method="post" class="formulario-login">
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 
@@ -41,6 +45,8 @@
         </form>
 
         <p class="auth-links">
+            <a th:href="@{/cadastro}">Cadastrar administrador</a>
+            <span aria-hidden="true"> | </span>
             <a th:href="@{/cliente/login}">Área do cliente</a>
         </p>
     </section>
