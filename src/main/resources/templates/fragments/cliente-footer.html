@@ -1,0 +1,19 @@
+<footer xmlns:th="http://www.thymeleaf.org" th:fragment="footer" class="site-footer">
+    <div class="site-footer__inner">
+        <div class="site-footer__brand" aria-label="KOCH Embutidos e suínos">
+            <div class="site-footer__deco site-footer__deco--left">
+                <span class="site-footer__line" aria-hidden="true"></span>
+                <span class="site-footer__bar" aria-hidden="true">|</span>
+            </div>
+            <div class="site-footer__titles">
+                <p class="site-footer__name">KOCH</p>
+                <p class="site-footer__tagline">Embutidos e suínos</p>
+            </div>
+            <div class="site-footer__deco site-footer__deco--right">
+                <span class="site-footer__bar" aria-hidden="true">|</span>
+                <span class="site-footer__line" aria-hidden="true"></span>
+            </div>
+        </div>
+        <p class="site-footer__copy">© <span th:text="${anoAtual}">2026</span> Koch Charcutaria. Todos os direitos reservados.</p>
+    </div>
+</footer>

@@ -1,0 +1,34 @@
+<header xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+        th:fragment="topbar"
+        class="topbar">
+    <img th:src="@{/cliente/img/logo.png}" alt="Logo Koch">
+    <input type="checkbox" id="menu-toggle" class="menu-toggle">
+    <label for="menu-toggle" class="menu-button" aria-label="Abrir menu">
+        <i class="fa-solid fa-bars"></i>
+    </label>
+    <div class="links">
+        <a th:href="@{/}">Inicio</a>
+        <a th:href="@{/catalogo}">Catálogo</a>
+        <a th:href="@{/assinaturas}">Assinaturas</a>
+        <a th:href="@{/contato}">Contato</a>
+        <a th:href="@{/cliente/painel}" sec:authorize="isAuthenticated()" class="mobile-action">
+            <i class="fa-solid fa-user"></i> Usuario
+        </a>
+        <a th:href="@{/cliente/login}" sec:authorize="!isAuthenticated()" class="mobile-action">
+            <i class="fa-solid fa-user"></i> Entrar
+        </a>
+        <a th:href="@{/assinaturas}" class="mobile-action">
+            <i class="fa-solid fa-cart-shopping"></i> Assinaturas
+        </a>
+    </div>
+    <div class="icons">
+        <i class="fa-solid fa-user"></i>
+        <i class="fa-solid fa-cart-shopping"></i>
+        <button type="button" onclick="window.open('https://api.whatsapp.com/send/?phone=5545999730157&amp;text=ola+tudo+bem%3F','_blank')">
+            <i class="fa-solid fa-phone"></i>
+            Contato
+        </button>
+    </div>
+    <label for="menu-toggle" class="menu-overlay" aria-hidden="true"></label>
+</header>

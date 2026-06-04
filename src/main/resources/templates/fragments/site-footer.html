@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<footer th:fragment="footer" class="rodape site-footer">
+    <div class="rodape-marca">
+        <span class="linha-deco"></span>
+        <span class="marca">KOCH</span>
+        <span class="linha-deco"></span>
+    </div>
+    <p class="subtitulo">Embutidos e suínos</p>
+    <p class="copy">© <span th:text="${anoAtual}">2026</span> Koch Charcutaria. Todos os direitos reservados.</p>
+    <p class="copy copy-links">
+        <a th:href="@{/cliente/login}">Área do cliente</a>
+        <span aria-hidden="true"> · </span>
+        <a th:href="@{/login}">Área administrativa</a>
+    </p>
+</footer>
+</body>
+</html>

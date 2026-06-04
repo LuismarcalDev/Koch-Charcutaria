@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+<nav th:fragment="header" class="navbar site-navbar" id="siteNavbar">
+    <div class="logo">
+        <a th:href="@{/}" title="Página inicial">
+            <img th:src="@{/imagens/kochlogo.png}" alt="Koch Charcutaria">
+        </a>
+    </div>
+
+    <ul class="nav-links">
+        <li><a th:href="@{/}" title="Início">Início</a></li>
+        <li><a th:href="@{/catalogo#historia}" title="Nossa história">História</a></li>
+        <li><a th:href="@{/catalogo#catalogo-produtos}" title="Produtos">Catálogo</a></li>
+        <li><a th:href="@{/assinaturas}" title="Planos de assinatura">Assinaturas</a></li>
+        <li sec:authorize="hasRole('ADMINISTRADOR')">
+            <a th:href="@{/admin/dashboard}" title="Painel administrativo">Admin</a>
+        </li>
+        <li sec:authorize="isAuthenticated() and !hasRole('ADMINISTRADOR')">
+            <a th:href="@{/cliente/painel}" title="Minha conta">Minha conta</a>
+        </li>
+        <li sec:authorize="!isAuthenticated()">
+            <a th:href="@{/cliente/login}" title="Área do cliente">Entrar</a>
+        </li>
+        <li class="nav-contact-mobile">
+            <a href="https://api.whatsapp.com/send/?phone=5545999730157&amp;text=ola+tudo+bem%3F"
+               target="_blank" rel="noopener noreferrer" title="WhatsApp">Contato</a>
+        </li>
+    </ul>
+
+    <a href="https://api.whatsapp.com/send/?phone=5545999730157&amp;text=ola+tudo+bem%3F"
+       class="contact-button" target="_blank" rel="noopener noreferrer" title="Fale conosco no WhatsApp">
+        <img th:src="@{/imagens/telefone.png}" class="icon" alt="">
+        Contato
+    </a>
+
+    <button type="button" class="menu-toggle" aria-label="Abrir menu" aria-expanded="false">☰</button>
+</nav>
+</body>
+</html>
