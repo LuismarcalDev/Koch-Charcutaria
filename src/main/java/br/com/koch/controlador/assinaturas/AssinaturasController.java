@@ -1,4 +1,4 @@
-package br.com.koch.controlador.Assinaturas;
+package br.com.koch.controlador.assinaturas;
 
 import br.com.koch.modelo.cliente.Cliente;
 import br.com.koch.repositorio.cliente.RepositorioCliente;
