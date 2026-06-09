@@ -1,4 +1,6 @@
-/* ============================================================
+
+
+ /* ============================================================
    KOCH Embutidos e Defumados — CSS Unificado
    (Fusão de css01.css + css02.css + css03.css)
    ============================================================ */
@@ -328,7 +330,7 @@ body {
     align-items: center;
     justify-content: center;
     gap: 8px;
-    
+
 }
 
 .icone-btn {
@@ -597,7 +599,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    
+
 }
 
 .bandeira-bg {
@@ -835,10 +837,10 @@ body {
 
     .main-banner {
         margin-top: 0;
+        height: 50vh;
     }
 
     .main-banner img {
-        max-height: 50vh;
         object-fit: cover;
     }
 
@@ -935,6 +937,7 @@ body {
 
     .imagens-cert img {
         border-radius: 10%;
+        height: 190px !important;
     }
 
     .descricao-qualidade {
@@ -1015,7 +1018,12 @@ body {
 }
 
 /* --- MOBILE PEQUENO (até 480px) --- */
+
 @media (max-width: 480px) {
+.main-banner {
+    height: 100%;!important
+}
+
     .texto-banner h1 {
         font-size: 40px;
         margin-bottom: -5px;
@@ -1073,3 +1081,11 @@ body {
     font-family: 'Inter', sans-serif;
     align-self: center;
 }
+
+.bandeira-bg{
+    top: 25%;
+}
+
+.rodape {
+        padding: 0px 0%;
+    }
