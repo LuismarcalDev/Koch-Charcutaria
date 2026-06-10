@@ -9,11 +9,10 @@
     </div>
     <p class="subtitulo">Embutidos e suínos</p>
     <p class="copy">© <span th:text="${anoAtual}">2026</span> Koch Charcutaria. Todos os direitos reservados.</p>
-    <p class="copy copy-links">
+    <nav class="copy copy-links" aria-label="Acessos restritos">
         <a th:href="@{/cliente/login}">Área do cliente</a>
-        <span aria-hidden="true"> · </span>
         <a th:href="@{/login}">Área administrativa</a>
-    </p>
+    </nav>
 </footer>
 </body>
 </html>

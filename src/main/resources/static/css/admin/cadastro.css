@@ -1,182 +1,246 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body {
-    font-family: Arial, sans-serif;
-    background-color: #efefef;
-    color: #222222;
-    min-height: 100vh;
+html {
+    height: 100%;
+}
+
+body.admin-auth-page {
+    width: 100%;
+    min-height: 100dvh;
     display: flex;
     flex-direction: column;
+    font-family: "Poppins", system-ui, sans-serif;
+    color: #3a1518;
 }
 
-.cabecalho {
-    height: 72px;
-    background-color: #980914;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 24px;
-}
-
-.cabecalho-logo img {
-    height: 46px;
-}
-
-.cabecalho-menu {
-    display: flex;
-    gap: 48px;
-}
-
-.cabecalho-menu a {
-    color: #ffffff;
-    text-decoration: none;
-    font-size: 16px;
-    font-weight: 500;
-}
-
-.cabecalho-contato a {
-    background-color: #c88221;
-    color: #ffffff;
-    text-decoration: none;
-    padding: 10px 18px;
-    border-radius: 4px;
-    font-size: 14px;
-    font-weight: 600;
-}
-
-.conteudo,
-body.site-body .conteudo.page-main {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+body.admin-auth-page > main.conteudo.page-main {
     width: 100%;
-    padding: clamp(20px, 4vw, 40px) clamp(16px, 4vw, 20px);
+    background:
+        radial-gradient(100% 60% at 50% 0%, rgba(216, 151, 33, 0.14) 0%, transparent 52%),
+        linear-gradient(180deg, #fdfcfa 0%, #f3eeea 55%, #ebe5e0 100%);
+    display: flex !important;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 32px 16px 28px;
 }
 
 .caixa-cadastro {
-    width: 100%;
-    max-width: 520px;
-    background-color: #f5f5f5;
-    border: 1px solid #7d7d7d;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-    padding: 42px 48px;
+    width: min(420px, 100%);
+    margin: 0 auto;
+    border: 1px solid rgba(216, 151, 33, 0.32);
+    border-radius: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 22px 22px 24px;
+    background: rgba(255, 255, 255, 0.78);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.95) inset,
+        0 18px 48px rgba(58, 21, 24, 0.1),
+        0 6px 20px rgba(134, 12, 23, 0.07);
+}
+
+.admin-cadastro-logo {
+    width: 92px !important;
+    max-width: 92px !important;
+    height: auto !important;
+    align-self: center;
+    object-fit: contain;
+    display: block;
+    filter: drop-shadow(0 6px 14px rgba(58, 21, 24, 0.12));
 }
 
 .caixa-cadastro h1 {
     text-align: center;
-    font-size: 34px;
-    font-weight: 500;
-    margin-bottom: 36px;
-    position: relative;
-}
-
-.caixa-cadastro h1::after {
-    content: "";
-    display: block;
-    width: 210px;
-    height: 3px;
-    background-color: #c88221;
-    margin: 10px auto 0;
+    font-size: 1.32rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: #3a1518;
+    margin-bottom: 4px;
 }
 
 .formulario-cadastro {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 12px;
 }
 
 .campo {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 5px;
 }
 
 .campo label {
-    font-size: 14px;
-    color: #444444;
+    font-weight: 600;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: #6b4d45;
 }
 
 .campo input {
-    height: 44px;
-    padding: 0 12px;
-    border: 1px solid #cfcfcf;
-    border-radius: 4px;
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 9px;
     outline: none;
-    font-size: 14px;
-    background-color: #ffffff;
+    border: 1px solid rgba(58, 21, 24, 0.14);
+    background: rgba(255, 255, 255, 0.95);
+    font-family: inherit;
+    font-size: 0.88rem;
+    color: #2d1215;
+    line-height: 1.35;
+    transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+}
+
+.campo input::placeholder {
+    color: rgba(45, 18, 21, 0.38);
+}
+
+.campo input:hover {
+    border-color: rgba(216, 151, 33, 0.45);
+    background: #ffffff;
 }
 
 .campo input:focus {
-    border-color: #c88221;
+    border-color: rgba(216, 151, 33, 0.85);
+    box-shadow: 0 0 0 2px rgba(216, 151, 33, 0.2);
 }
 
 .campo small {
-    color: #b12222;
-    font-size: 13px;
+    color: #8b1f1f;
+    font-size: 0.78rem;
+    font-weight: 500;
 }
 
 .botao-entrar {
-    margin-top: 8px;
-    height: 46px;
+    margin-top: 4px;
+    padding: 11px 16px;
     border: none;
-    border-radius: 4px;
-    background-color: #f0a000;
-    color: #ffffff;
-    font-size: 15px;
-    font-weight: 700;
+    border-radius: 10px;
+    color: #1a0a0c;
+    background: linear-gradient(180deg, #e8b03d 0%, #d89721 48%, #c98c1c 100%);
+    font-weight: 600;
+    font-size: 0.88rem;
+    letter-spacing: 0.03em;
     cursor: pointer;
+    font-family: inherit;
+    box-shadow: 0 2px 0 rgba(134, 12, 23, 0.35), 0 8px 22px rgba(58, 21, 24, 0.12);
+    transition: filter 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.botao-entrar:hover {
+    filter: brightness(1.04);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 0 rgba(134, 12, 23, 0.35), 0 10px 26px rgba(58, 21, 24, 0.14);
+}
+
+.botao-entrar:active {
+    transform: translateY(0);
+    filter: brightness(0.98);
 }
 
 .link-voltar {
+    margin-top: 8px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(134, 12, 23, 0.12);
     text-align: center;
-    text-decoration: none;
-    color: #980914;
+    color: #860c17;
     font-weight: 600;
+    font-size: 0.84rem;
+    text-decoration: none;
+    align-self: center;
+    border-bottom: 1px solid rgba(134, 12, 23, 0.25);
+    transition: color 0.18s ease, border-color 0.18s ease;
 }
 
-.rodape {
-    height: 108px;
-    background-color: #980914;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.link-voltar:hover {
+    color: #6a0a12;
+    border-bottom-color: rgba(134, 12, 23, 0.5);
 }
 
-.rodape img {
-    height: 54px;
+body.admin-auth-page .site-footer,
+body.admin-auth-page .site-footer *,
+body.admin-auth-page footer,
+body.admin-auth-page footer * {
+    font-family: "Poppins", system-ui, sans-serif;
+}
+
+body.admin-auth-page .site-footer a,
+body.admin-auth-page footer a {
+    font-weight: 500;
+    text-decoration: none;
+}
+
+body.admin-auth-page .site-footer a:hover,
+body.admin-auth-page footer a:hover {
+    text-decoration: underline;
 }
 
 @media (max-width: 768px) {
-    .conteudo {
-        padding: 24px 16px;
+    body.admin-auth-page > main.conteudo.page-main {
+        padding-top: 24px;
+        padding-bottom: 24px;
     }
 
     .caixa-cadastro {
         width: 100%;
         max-width: 100%;
-        padding: 28px 20px;
+        padding: 20px 18px;
+        animation: cardUp 420ms ease;
     }
 
     .caixa-cadastro h1 {
-        font-size: 26px;
-    }
-
-    .caixa-cadastro h1::after {
-        width: 140px;
+        font-size: 1.15rem;
     }
 }
 
 @media (max-width: 480px) {
-    .cabecalho-logo img {
-        height: 38px;
+    .admin-cadastro-logo {
+        width: 78px !important;
+        max-width: 78px !important;
     }
 
-    .cabecalho-menu a {
-        font-size: 14px;
+    .campo input {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 640px), (max-height: 720px) {
+    body.admin-auth-page > main.conteudo.page-main {
+        padding-top: 24px;
+        padding-bottom: 24px;
+    }
+}
+
+@media (max-width: 360px) {
+    body.admin-auth-page > main.conteudo.page-main {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .caixa-cadastro {
+        padding-left: 14px;
+        padding-right: 14px;
+    }
+}
+
+@keyframes cardUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }

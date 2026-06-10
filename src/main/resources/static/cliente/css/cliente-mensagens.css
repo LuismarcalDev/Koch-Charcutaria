@@ -147,6 +147,18 @@
     border-bottom-color: rgba(134, 12, 23, 0.5);
 }
 
+body.cliente-auth-page .cliente-toast-stack,
+body.cliente-painel-page .cliente-toast-stack {
+    top: max(76px, calc(env(safe-area-inset-top, 0px) + 68px));
+}
+
+@media (max-width: 900px) {
+    body.cliente-auth-page .cliente-toast-stack,
+    body.cliente-painel-page .cliente-toast-stack {
+        top: max(70px, calc(env(safe-area-inset-top, 0px) + 62px));
+    }
+}
+
 @media (max-width: 480px) {
     .cliente-toast-stack {
         width: calc(100vw - 20px);
@@ -155,6 +167,11 @@
     .cliente-toast {
         font-size: 0.82rem;
         padding: 12px 14px;
+    }
+
+    body.cliente-auth-page .cliente-toast-stack,
+    body.cliente-painel-page .cliente-toast-stack {
+        top: max(64px, calc(env(safe-area-inset-top, 0px) + 56px));
     }
 }
 

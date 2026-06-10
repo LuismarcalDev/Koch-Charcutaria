@@ -8,12 +8,13 @@
     <link rel="stylesheet" th:href="@{/css/site-layout.css}">
     <link rel="stylesheet" th:href="@{/css/admin/login.css}">
 </head>
-<body class="site-body">
+<body class="site-body admin-auth-page">
 
 <div th:replace="~{fragments/site-header :: header}"></div>
 
 <main class="conteudo page-main">
     <section class="caixa-login">
+        <img class="admin-login-logo" th:src="@{/cliente/img/logo.png}" alt="Logo Koch">
         <h1>Login Administrador</h1>
 
         <div class="mensagem erro" th:if="${param.error}">
@@ -44,15 +45,20 @@
             <button type="submit" class="botao-entrar">Entrar</button>
         </form>
 
-        <p class="auth-links">
-            <a th:href="@{/cadastro}">Cadastrar administrador</a>
-            <span aria-hidden="true"> | </span>
-            <a th:href="@{/cliente/login}">Área do cliente</a>
-        </p>
+        <div class="auth-links">
+            <p>
+                <a th:href="@{/cadastro}">Cadastrar administrador</a>
+            </p>
+
+            <p class="auth-links-secondary">
+                <a th:href="@{/cliente/login}">Área do cliente</a>
+            </p>
+        </div>
     </section>
 </main>
 
 <div th:replace="~{fragments/site-footer :: footer}"></div>
+
 <script th:src="@{/js/site-nav.js}" defer></script>
 </body>
 </html>

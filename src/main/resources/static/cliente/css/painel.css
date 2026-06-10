@@ -162,6 +162,9 @@ main{
 .perfil-aba p{
     font-weight: 500;
     font-size: 15px;
+    min-width: 0;
+    overflow-wrap: anywhere;
+    word-break: break-word;
 }
 .abas-gerais{
     margin-top: 70px;
@@ -942,59 +945,17 @@ body.popup-open{
         justify-content: flex-start;
     }
 
+    .abas-gerais{
+        grid-template-columns: 1fr;
+        order: 2;
+    }
+
     .aba-painel{
-        min-width: 100%;
+        width: 100%;
+        min-width: 0;
         font-size: 0.9rem;
-    }
-
-    .painel-infos{
-        padding: 16px 12px;
-        min-height: 360px;
-    }
-
-    .dados-pessoais{
-        padding: 16px 14px;
-    }
-
-    .controller{
-        justify-content: stretch;
-    }
-
-    .btn-save{
-        width: 100%;
-    }
-
-    .grupo-assinaturas{
-        justify-content: center;
-    }
-
-    .assinatura{
-        width: 100%;
-        max-width: 320px;
-    }
-
-    .btn-buscar-assinaturas{
-        position: static;
-        align-self: flex-end;
-        margin-top: 12px;
-        right: auto;
-        bottom: auto;
-    }
-}
-
-@media (max-width: 700px){
-    body.cliente-painel-page.site-body > main{
-        padding: 10px;
-    }
-
-    .painel{
-        width: 100%;
-        max-width: none;
-    }
-
-    .painel-dados{
-        padding: 16px 14px 14px;
-        gap: 14px;
+        min-height: 44px;
+        text-align: left;
     }
 
     .perfil-aba{
@@ -1012,6 +973,7 @@ body.popup-open{
     .sair:hover{
         width: 100%;
         min-height: 44px;
+        margin-top: 0;
         border-radius: 10px;
         background: rgba(0, 0, 0, 0.14);
         display: inline-flex;
@@ -1020,19 +982,9 @@ body.popup-open{
         gap: 8px;
     }
 
-    .abas-gerais{
-        grid-template-columns: 1fr;
-        order: 2;
-    }
-
-    .aba-painel{
-        min-height: 44px;
-        text-align: left;
-    }
-
     .painel-infos{
+        padding: 16px 12px;
         min-height: 0;
-        padding: 18px 14px;
     }
 
     .painel-infos__views{
@@ -1057,16 +1009,6 @@ body.popup-open{
         padding-bottom: 0;
     }
 
-    .dados-pessoais,
-    .painel-form-endereco{
-        padding: 16px 14px;
-        border-radius: 12px;
-    }
-
-    .controller{
-        padding-top: 10px;
-    }
-
     .grupo-assinaturas{
         display: grid;
         grid-template-columns: 1fr;
@@ -1083,6 +1025,52 @@ body.popup-open{
         width: 100%;
         justify-content: center;
         align-self: stretch;
+        position: static;
+        margin-top: 12px;
+        right: auto;
+        bottom: auto;
+    }
+
+    .dados-pessoais{
+        padding: 16px 14px;
+    }
+
+    .controller{
+        justify-content: stretch;
+    }
+
+    .btn-save{
+        width: 100%;
+    }
+}
+
+@media (max-width: 700px){
+    body.cliente-painel-page.site-body > main{
+        padding: 10px;
+    }
+
+    .painel{
+        width: 100%;
+        max-width: none;
+    }
+
+    .painel-dados{
+        padding: 16px 14px 14px;
+        gap: 14px;
+    }
+
+    .painel-infos{
+        padding: 18px 14px;
+    }
+
+    .dados-pessoais,
+    .painel-form-endereco{
+        padding: 16px 14px;
+        border-radius: 12px;
+    }
+
+    .controller{
+        padding-top: 10px;
     }
 }
 

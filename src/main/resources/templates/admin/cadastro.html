@@ -8,12 +8,14 @@
     <link rel="stylesheet" th:href="@{/css/site-layout.css}">
     <link rel="stylesheet" th:href="@{/css/admin/cadastro.css}">
 </head>
-<body class="site-body">
+<body class="site-body admin-auth-page">
 
 <div th:replace="~{fragments/site-header :: header}"></div>
 
 <main class="conteudo page-main">
     <section class="caixa-cadastro">
+        <img class="admin-cadastro-logo" th:src="@{/cliente/img/logo.png}" alt="Logo Koch">
+
         <h1>Cadastro Administrador</h1>
 
         <form th:action="@{/cadastro}" th:object="${cadastroUsuarioRequest}" method="post" class="formulario-cadastro">
@@ -45,6 +47,7 @@
 </main>
 
 <div th:replace="~{fragments/site-footer :: footer}"></div>
+
 <script th:src="@{/js/site-nav.js}" defer></script>
 </body>
 </html>
