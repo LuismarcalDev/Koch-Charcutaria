@@ -1,4 +1,4 @@
-package br.com.koch.servico.admin;
+package br.com.koch.servico;
 
 import br.com.koch.modelo.admin.Perfil;
 import br.com.koch.modelo.admin.Usuario;
@@ -18,19 +18,19 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 /**
- * CT-17 — Validar carregamento de credenciais e mapeamento de perfis em ServicoDetalhesUsuarioAdm
+ * CT-23 — Validar carregamento de credenciais e mapeamento de perfis em ServicoDetalhesUsuario
  * Tipo   : Unitário
  * Fase   : Verificação
  * Resp.  : Igor Farias
  */
 @ExtendWith(MockitoExtension.class)
-class ServicoDetalhesUsuarioAdmTest {
+class ServicoDetalhesUsuarioTest {
 
     @Mock
     private RepositorioUsuario repositorioUsuario;
 
     @InjectMocks
-    private ServicoDetalhesUsuarioAdm servicoDetalhesUsuarioAdm;
+    private ServicoDetalhesUsuario servicoDetalhesUsuario;
 
     // ------------------------------------------------------------------ //
     // Cenário A — usuário encontrado                                      //
@@ -41,20 +41,20 @@ class ServicoDetalhesUsuarioAdmTest {
         // Arrange
         Usuario usuario = new Usuario(
                 UUID.randomUUID(),
-                "Igor Adm",
-                "igor@koch.com",
+                "Admin Geral",
+                "geral@koch.com",
                 "$2a$10$hashSimulado",
                 Perfil.ADMINISTRADOR
         );
 
-        when(repositorioUsuario.buscarPorEmail("igor@koch.com"))
+        when(repositorioUsuario.buscarPorEmail("geral@koch.com"))
                 .thenReturn(Optional.of(usuario));
 
         // Act
-        UserDetails detalhes = servicoDetalhesUsuarioAdm.loadUserByUsername("igor@koch.com");
+        UserDetails detalhes = servicoDetalhesUsuario.loadUserByUsername("geral@koch.com");
 
         // Assert — credenciais
-        assertEquals("igor@koch.com", detalhes.getUsername(),
+        assertEquals("geral@koch.com", detalhes.getUsername(),
                 "O username do UserDetails deve ser o e-mail do usuário");
         assertEquals("$2a$10$hashSimulado", detalhes.getPassword(),
                 "O password do UserDetails deve ser o hash da senha");
@@ -75,13 +75,13 @@ class ServicoDetalhesUsuarioAdmTest {
     @Test
     void cenarioB_loadUserByUsername_deveLancarUsernameNotFoundExceptionQuandoEmailNaoExiste() {
         // Arrange
-        when(repositorioUsuario.buscarPorEmail("nao_existe@koch.com"))
+        when(repositorioUsuario.buscarPorEmail("email.fantasma@koch.com"))
                 .thenReturn(Optional.empty());
 
         // Act + Assert
         UsernameNotFoundException ex = assertThrows(
                 UsernameNotFoundException.class,
-                () -> servicoDetalhesUsuarioAdm.loadUserByUsername("nao_existe@koch.com")
+                () -> servicoDetalhesUsuario.loadUserByUsername("email.fantasma@koch.com")
         );
         assertEquals("Usuário não encontrado.", ex.getMessage());
     }
