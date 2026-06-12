@@ -6,6 +6,8 @@ import jakarta.validation.constraints.Size;
 
 public class CadastroUsuarioRequest
 {
+    public CadastroUsuarioRequest(){}
+
     @NotBlank(message = "O nome é obrigatório.")
     private String nome;
 

@@ -4,15 +4,16 @@ import java.util.UUID;
 
 public class Usuario
 {
+    public Usuario()
+    {
+    }
     private UUID id;
     private String nome;
     private String email;
     private String senhaHash;
     private Perfil perfil;
 
-    public Usuario()
-    {
-    }
+
 
     public Usuario(UUID id, String nome, String email, String senhaHash, Perfil perfil)
     {

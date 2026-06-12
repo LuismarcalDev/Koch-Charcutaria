@@ -3,15 +3,6 @@ package br.com.koch.dto.cliente;
 import java.math.BigDecimal;
 
 public class PainelAssinaturaDto {
-
-    private final long id;
-    private final String nome;
-    private final String foto;
-    private final String descricao;
-    private final BigDecimal preco;
-    private final String periodicidade;
-    private final String fornecedor;
-
     public PainelAssinaturaDto(
             long id,
             String nome,
@@ -29,6 +20,15 @@ public class PainelAssinaturaDto {
         this.periodicidade = periodicidade;
         this.fornecedor = fornecedor;
     }
+
+    private final long id;
+    private final String nome;
+    private final String foto;
+    private final String descricao;
+    private final BigDecimal preco;
+    private final String periodicidade;
+    private final String fornecedor;
+
 
     public long getId() {
         return id;

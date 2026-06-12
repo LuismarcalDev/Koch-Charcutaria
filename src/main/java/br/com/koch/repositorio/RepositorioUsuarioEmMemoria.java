@@ -10,6 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Repository
 public class RepositorioUsuarioEmMemoria implements RepositorioUsuario
 {
+    public RepositorioUsuarioEmMemoria(){}
     private final Map<String, Usuario> usuariosPorEmail = new ConcurrentHashMap<>();
 
     @Override

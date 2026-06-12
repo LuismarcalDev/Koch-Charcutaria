@@ -1,4 +1,4 @@
-package br.com.koch.dto.cliente;
+package br.com.koch.dto.admin;
 
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
@@ -10,12 +10,12 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * CT-11 — Validar Bean Validation (Caminho Feliz e Infeliz) do PainelUsuarioDto
+ * CT-07 — Validar Bean Validation (Caminho Feliz e Infeliz) do CadastroUsuarioRequest
  * Tipo   : Unitário
  * Fase   : Verificação
  * Resp.  : Igor Farias
  */
-class PainelUsuarioDtoTest {
+class CadastroUsuarioRequestTest {
 
     private static Validator validator;
 
@@ -28,15 +28,14 @@ class PainelUsuarioDtoTest {
     @Test
     void cenarioFeliz_dadosValidosDevemGerarZeroViolacoes() {
         // Arrange
-        PainelUsuarioDto dto = new PainelUsuarioDto();
-        dto.setNome("Igor Farias");
-        dto.setTelefone("4599999999");
-        dto.setEmail("igor@email.com");
-        dto.setEndereco("Rua Alberto Nepomuceno, 123");
+        CadastroUsuarioRequest request = new CadastroUsuarioRequest();
+        request.setNome("Igor Farias");
+        request.setEmail("igor@email.com");
+        request.setSenha("senhaSegura123");
 
         // Act
-        Set<ConstraintViolation<PainelUsuarioDto>> violacoes =
-                validator.validate(dto);
+        Set<ConstraintViolation<CadastroUsuarioRequest>> violacoes =
+                validator.validate(request);
 
         // Assert
         assertTrue(violacoes.isEmpty(),
@@ -45,19 +44,18 @@ class PainelUsuarioDtoTest {
 
     @Test
     void cenarioInfeliz_dadosInvalidosDevemGerarTresViolacoes() {
-        // Arrange — nome/telefone em branco, e-mail sem @; endereco sem anotação, não valida
-        PainelUsuarioDto dto = new PainelUsuarioDto();
-        dto.setNome("");
-        dto.setTelefone("");
-        dto.setEmail("igor_email.com");
-        dto.setEndereco("Rua Alberto Nepomuceno, 123");
+        // Arrange — nome vazio, e-mail sem @, senha com menos de 6 caracteres
+        CadastroUsuarioRequest request = new CadastroUsuarioRequest();
+        request.setNome("");
+        request.setEmail("igor_email.com");
+        request.setSenha("123");
 
         // Act
-        Set<ConstraintViolation<PainelUsuarioDto>> violacoes =
-                validator.validate(dto);
+        Set<ConstraintViolation<CadastroUsuarioRequest>> violacoes =
+                validator.validate(request);
 
         // Assert
         assertEquals(3, violacoes.size(),
-                "Devem ser detectadas exatamente 3 violações: nome, telefone e e-mail");
+                "Devem ser detectadas exatamente 3 violações: nome, e-mail e senha");
     }
 }

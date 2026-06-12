@@ -4,20 +4,22 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
 public class CadastroClienteRequest {
+    public CadastroClienteRequest(){}
 
-    @NotBlank
+    @NotBlank(message = "O nome é obrigatório.")
     private String nome;
 
-    @NotBlank @Email
+    @NotBlank(message = "O e-mail é obrigatório.")
+    @Email(message = "Informe um e-mail válido.")
     private String email;
 
-    @NotBlank
+    @NotBlank(message = "O telefone é obrigatório.")
     private String telefone;
 
-    @NotBlank
+    @NotBlank(message = "O endereço é obrigatório.")
     private String endereco;
 
-    @NotBlank
+    @NotBlank(message = "A senha é obrigatória.")
     private String senha;
 
     public String getNome() { return nome; }
